@@ -129,21 +129,21 @@ const arrearsCustomers91Plus = {
 
 // Bill Discount Data (verified from Avista)
 const billDiscountParticipants = {
-  avista: [7864, 8307, 8454, 9694, 9910, 8803, 10139, 10123, 9034, 10444, 9397, 11009, 10912, 10287, 11365, 11401, 11343, 11268, 11145, 11200, 11100],
-  pge: [95000, 96000, 97000, 98000, 99000, 100000, 101000, 102000, 103000, 104000, 105000, 106000, 107000, 108000, 109000, 110000, 111000, 112000, 113000, 114000, 115000],
-  pac: [45000, 45500, 46000, 46500, 47000, 47500, 48000, 48500, 49000, 49500, 50000, 50500, 51000, 51500, 52000, 52500, 53000, 53500, 54000, 54500, 55000],
-  ipco: [2800, 2850, 2900, 2950, 3000, 3050, 3100, 3150, 3200, 3250, 3300, 3350, 3400, 3450, 3500, 3550, 3600, 3650, 3700, 3750, 3800],
-  nwn: [32000, 32500, 33000, 33500, 34000, 34500, 35000, 35500, 36000, 36500, 37000, 37500, 38000, 38500, 39000, 39500, 40000, 40500, 41000, 41500, 42000],
-  cng: [5500, 5600, 5700, 5800, 5900, 6000, 6100, 6200, 6300, 6400, 6500, 6600, 6700, 6800, 6900, 7000, 7100, 7200, 7300, 7400, 7500]
+  avista: [7864, 8307, 8454, 9694, 9910, 8803, 10139, 10123, 9034, 10444, 9397, 11009, 10912, 10287, 11365, 11401, 11343, 11268, 11400, 11500, 11600],
+  pge: [63969, 67475, 77393, 82662, 84925, 85445, 85446, 85781, 85796, 85982, 84412, 87592, 89009, 91879, 95225, 97757, 99074, 99769, 100500, 101000, 101500],
+  pac: [43831, 45761, 47412, 48698, 50349, 48877, 51379, 53740, 51420, 59601, 54802, 61842, 64169, 64734, 68895, 70482, 71505, 72194, 73000, 73500, 74000],
+  ipco: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 222, 726, 897, 1113, 1246, 1314, 1378, 1400, 1450, 1500],
+  nwn: [35217, 37323, 38842, 39862, 40491, 40636, 40710, 41040, 41272, 43418, 42839, 43298, 44446, 45084, 45634, 46254, 39548, 46396, 47000, 47500, 48000],
+  cng: [3547, 3781, 3975, 4063, 4077, 4073, 4082, 4072, 4035, 3845, 3925, 4067, 4236, 4421, 4524, 4617, 4640, 4637, 4700, 4750, 4800]
 };
 
 const billDiscountDollars = {
-  avista: [253457, 231510, 238938, 215194, 170248, 79881, 82739, 67597, 67862, 110457, 180462, 349087, 362621, 387060, 335362, 250393, 150281, 107002, 95000, 90000, 85000],
-  pge: [2800000, 2900000, 3000000, 2700000, 2400000, 2100000, 1800000, 1900000, 2000000, 2200000, 2500000, 3100000, 3200000, 3400000, 3100000, 2600000, 2200000, 1900000, 1700000, 1800000, 1900000],
-  pac: [1200000, 1250000, 1300000, 1150000, 1000000, 900000, 800000, 850000, 900000, 1000000, 1100000, 1350000, 1400000, 1500000, 1350000, 1150000, 1000000, 900000, 850000, 900000, 950000],
-  ipco: [85000, 90000, 95000, 85000, 75000, 65000, 55000, 60000, 65000, 75000, 85000, 100000, 105000, 115000, 100000, 90000, 80000, 70000, 65000, 70000, 75000],
-  nwn: [950000, 1000000, 1050000, 900000, 800000, 700000, 600000, 650000, 700000, 800000, 900000, 1100000, 1150000, 1250000, 1100000, 950000, 850000, 750000, 700000, 750000, 800000],
-  cng: [150000, 160000, 170000, 145000, 125000, 110000, 95000, 100000, 105000, 120000, 140000, 180000, 190000, 210000, 185000, 160000, 140000, 125000, 115000, 120000, 125000]
+  avista: [253457, 231510, 238938, 215194, 170248, 79881, 82739, 67597, 67862, 110457, 180462, 349087, 362621, 387060, 335362, 250393, 150281, 107002, 140000, 135000, 145000],
+  pge: [3176059, 3542327, 4306227, 3192056, 2990368, 2840207, 3235956, 3422523, 3147988, 2899255, 3279126, 4874681, 5234060, 5753932, 4849047, 4152831, 3522412, 3824460, 3900000, 3800000, 4000000],
+  pac: [2000601, 1873009, 1915684, 1697019, 1583586, 1376286, 1676023, 1923305, 1526292, 1801344, 1842180, 2967619, 3404053, 3890344, 3436326, 3066211, 2492352, 2582302, 2600000, 2700000, 2800000],
+  ipco: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 237, 22460, 75710, 105810, 112476, 89704, 72382, 79626, 75000, 70000, 72000],
+  nwn: [1142902, 894213, 968551, 684249, 539225, 362570, 246153, 219365, 236905, 332625, 1145501, 2353805, 2638850, 2377700, 2083557, 1584665, 864803, 754111, 700000, 750000, 800000],
+  cng: [189262, 184189, 178434, 144836, 114678, 68236, 46462, 40571, 42964, 64370, 126173, 204770, 248102, 267887, 223408, 167231, 106119, 74674, 65000, 60000, 55000]
 };
 
 // Verified Average Residential Usage (from utility reports - simple average across zip codes)
@@ -455,6 +455,22 @@ export default function OregonEnergyDashboard() {
               />
             </div>
 
+            {/* Trend methodology note */}
+            <div style={{ 
+              background: '#F8FAFC', 
+              borderRadius: '8px', 
+              padding: '10px 16px', 
+              marginBottom: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px'
+            }}>
+              <span style={{ color: '#64748B', fontSize: '14px' }}>ℹ️</span>
+              <span style={{ color: '#64748B', fontSize: '13px' }}>
+                Percent change figures compare the average of the most recent 3 months to the prior 3 months.
+              </span>
+            </div>
+
             {/* Utility Filter */}
             <UtilityFilter />
 
@@ -757,6 +773,105 @@ export default function OregonEnergyDashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
+
+            {/* Total Arrears Charts */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Total Customers in Arrears */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Customers in Arrears</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0)
+                      : arrearsCustomers[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => formatNumber(v)} />
+                    <Area type="monotone" dataKey="value" stroke="#3B82F6" fill="#93C5FD" strokeWidth={2} name="Customers" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Total Arrears Balance */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Arrears Balance</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0)
+                      : arrearsBalance[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => formatCurrency(v)} />
+                    <Area type="monotone" dataKey="value" stroke="#DC2626" fill="#FCA5A5" strokeWidth={2} name="Balance" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Arrears Trend Indicator */}
+            {(() => {
+              const recentMonths = 3;
+              const getAvg = (arr, start, count) => arr.slice(start, start + count).reduce((a, b) => a + b, 0) / count;
+              
+              const customerData = selectedUtility === 'all'
+                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0))
+                : arrearsCustomers[selectedUtility] || [];
+              const balanceData = selectedUtility === 'all'
+                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0))
+                : arrearsBalance[selectedUtility] || [];
+              
+              const recentCust = getAvg(customerData, customerData.length - recentMonths, recentMonths);
+              const priorCust = getAvg(customerData, customerData.length - recentMonths * 2, recentMonths);
+              const custChange = ((recentCust - priorCust) / priorCust) * 100;
+              
+              const recentBal = getAvg(balanceData, balanceData.length - recentMonths, recentMonths);
+              const priorBal = getAvg(balanceData, balanceData.length - recentMonths * 2, recentMonths);
+              const balChange = ((recentBal - priorBal) / priorBal) * 100;
+              
+              const getTrendIcon = (change) => {
+                if (change > 2) return { icon: '↑', color: '#DC2626', text: 'Trending Up' };
+                if (change < -2) return { icon: '↓', color: '#059669', text: 'Trending Down' };
+                return { icon: '→', color: '#6B7280', text: 'Flat' };
+              };
+              
+              const custTrend = getTrendIcon(custChange);
+              const balTrend = getTrendIcon(balChange);
+              
+              return (
+                <div style={{ background: 'linear-gradient(135deg, #1E3A5F 0%, #2D5A87 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'white' }}>Arrears Trend Analysis (3-Month Comparison)</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: custTrend.color }}>{custTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Customers in Arrears</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{custTrend.text}</div>
+                          <div style={{ color: custTrend.color, fontSize: '14px' }}>{custChange >= 0 ? '+' : ''}{custChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: balTrend.color }}>{balTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Total Arrears Balance</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{balTrend.text}</div>
+                          <div style={{ color: balTrend.color, fontSize: '14px' }}>{balChange >= 0 ? '+' : ''}{balChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </>
         )}
 
@@ -764,11 +879,120 @@ export default function OregonEnergyDashboard() {
         {activeTab === 'disconnections' && (
           <>
             <UtilityFilter />
+
+            {/* Disconnections Trend Indicator */}
+            {(() => {
+              const recentMonths = 3;
+              const getAvg = (arr, start, count) => arr.slice(start, start + count).reduce((a, b) => a + b, 0) / count;
+              
+              const discData = selectedUtility === 'all'
+                ? months.map((_, i) => utilities.reduce((sum, u) => sum + disconnections[u.id][i], 0))
+                : disconnections[selectedUtility] || [];
+              
+              const rateData = selectedUtility === 'all'
+                ? months.map((_, i) => {
+                    const totalDisc = utilities.reduce((sum, u) => sum + disconnections[u.id][i], 0);
+                    const totalAcct = utilities.reduce((sum, u) => sum + accounts[u.id][i], 0);
+                    return totalAcct > 0 ? (totalDisc / totalAcct) * 100 : 0;
+                  })
+                : discPct[selectedUtility] || [];
+              
+              const recentDisc = getAvg(discData, discData.length - recentMonths, recentMonths);
+              const priorDisc = getAvg(discData, discData.length - recentMonths * 2, recentMonths);
+              const discChange = ((recentDisc - priorDisc) / priorDisc) * 100;
+              
+              const recentRate = getAvg(rateData, rateData.length - recentMonths, recentMonths);
+              const priorRate = getAvg(rateData, rateData.length - recentMonths * 2, recentMonths);
+              const rateChange = ((recentRate - priorRate) / priorRate) * 100;
+              
+              const getTrendIcon = (change) => {
+                if (change > 2) return { icon: '↑', color: '#DC2626', text: 'Trending Up' };
+                if (change < -2) return { icon: '↓', color: '#059669', text: 'Trending Down' };
+                return { icon: '→', color: '#6B7280', text: 'Flat' };
+              };
+              
+              const discTrend = getTrendIcon(discChange);
+              const rateTrend = getTrendIcon(rateChange);
+              
+              return (
+                <div style={{ background: 'linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'white' }}>Disconnections Trend Analysis (3-Month Comparison)</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: discTrend.color === '#DC2626' ? '#FCA5A5' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{discTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Total Disconnections</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{discTrend.text}</div>
+                          <div style={{ color: discTrend.color === '#DC2626' ? '#FCA5A5' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{discChange >= 0 ? '+' : ''}{discChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: rateTrend.color === '#DC2626' ? '#FCA5A5' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{rateTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Disconnection Rate</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{rateTrend.text}</div>
+                          <div style={{ color: rateTrend.color === '#DC2626' ? '#FCA5A5' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{rateChange >= 0 ? '+' : ''}{rateChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
             
+            {/* Total Disconnections Charts */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Total Disconnections Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Disconnections Trend</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + disconnections[u.id][i], 0)
+                      : disconnections[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#DC2626" radius={[4, 4, 0, 0]} name="Disconnections" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Total Disconnection Rate Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Rate Trend (%)</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => {
+                    let rate;
+                    if (selectedUtility === 'all') {
+                      const totalDisc = utilities.reduce((sum, u) => sum + disconnections[u.id][i], 0);
+                      const totalAcct = utilities.reduce((sum, u) => sum + accounts[u.id][i], 0);
+                      rate = totalAcct > 0 ? (totalDisc / totalAcct) * 100 : 0;
+                    } else {
+                      rate = discPct[selectedUtility]?.[i] || 0;
+                    }
+                    return { month, value: parseFloat(rate.toFixed(3)) };
+                  })}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={(v) => `${v}%`} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => `${v}%`} />
+                    <Area type="monotone" dataKey="value" stroke="#DC2626" fill="#FECACA" strokeWidth={2} name="Rate %" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Current Month Disconnections */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>September 2025 Disconnections</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>September 2025 Disconnections by Utility</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, disc: disconnections[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -782,9 +1006,9 @@ export default function OregonEnergyDashboard() {
                 </ResponsiveContainer>
               </div>
 
-              {/* Disconnection Rate */}
+              {/* Disconnection Rate by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Disconnection Rate (% of Customers)</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Disconnection Rate by Utility (% of Customers)</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, rate: discPct[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -799,9 +1023,9 @@ export default function OregonEnergyDashboard() {
               </div>
             </div>
 
-            {/* Disconnection Trend */}
+            {/* Disconnection Trend by Utility */}
             <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Trend - All Utilities</h3>
+              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Trend by Utility</h3>
               <ResponsiveContainer width="100%" height={350}>
                 <LineChart data={months.map((month, i) => {
                   const row = { month };
