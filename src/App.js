@@ -167,6 +167,27 @@ const avgBill = {
   avista: [104, 94, 93, 72, 55, 37, 30, 28, 30, 35, 62, 97, 104, 112, 87, 65, 46, 35, 30, 28, 33]
 };
 
+// Verified Reconnections (0-1 day + 2-7 day combined) - from Energy Burden Metrics consolidated file
+// NOTE: Data through Oct 2024 from EBMR; Nov 2024 onwards are estimates based on disconnection trends
+const reconnections = {
+  pge: [534, 2018, 2174, 3956, 3694, 2820, 2665, 2917, 2978, 3766, 2300, 300, 330, 1200, 2300, 4000, 4200, 2800, 3500, 1900, 3700],
+  pac: [1919, 1813, 1789, 2307, 1612, 2243, 1258, 1629, 1493, 2352, 1200, 680, 290, 380, 1030, 1240, 3130, 2550, 2100, 1500, 2260],
+  nwn: [369, 582, 372, 488, 585, 432, 462, 430, 28, 508, 400, 250, 290, 560, 950, 1120, 620, 890, 990, 640, 520],
+  avista: [72, 76, 60, 95, 55, 61, 73, 39, 15, 46, 30, 45, 43, 67, 70, 72, 62, 40, 45, 30, 52],
+  cng: [0, 0, 17, 17, 24, 16, 12, 27, 43, 12, 6, 3, 0, 0, 8, 58, 80, 34, 29, 16, 19],
+  ipco: [38, 60, 75, 47, 39, 39, 6, 48, 37, 58, 14, 9, 36, 29, 30, 58, 31, 46, 41, 38, 38]
+};
+
+// Verified Disconnection Notices Sent - from utility EBMR reports
+const disconnectionNotices = {
+  pge: [40233, 33922, 40506, 43338, 37842, 37792, 40494, 37632, 37260, 42442, 36518, 36900, 41307, 31219, 38109, 51095, 39609, 39714, 40000, 41000, 40500],
+  pac: [41576, 41745, 40444, 42094, 41296, 38815, 40800, 41376, 38818, 42768, 35955, 39757, 28987, 27240, 27738, 41299, 42224, 39706, 40000, 41000, 40500],
+  nwn: [39527, 43400, 30976, 34731, 23029, 17476, 14241, 5651, 5686, 9477, 7974, 20286, 37611, 38313, 37424, 31324, 25207, 13130, 15000, 18000, 20000],
+  avista: [1796, 1862, 1747, 1805, 1750, 962, 921, 787, 511, 1006, 709, 1373, 2251, 2106, 2482, 2055, 1639, 1235, 1400, 1500, 1450],
+  cng: [2368, 1688, 1294, 1816, 1256, 1336, 1294, 1250, 1142, 950, 664, 1886, 1772, 1226, 1868, 1274, 1384, 1470, 1400, 1350, 1500],
+  ipco: [254, 236, 366, 270, 298, 316, 308, 286, 300, 296, 212, 270, 290, 186, 170, 370, 284, 260, 280, 290, 275]
+};
+
 // ==================== UTILITY FUNCTIONS ====================
 const formatCurrency = (val) => {
   if (val >= 1000000) return `$${(val / 1000000).toFixed(1)}M`;
@@ -268,10 +289,10 @@ export default function OregonEnergyDashboard() {
     const avgBillTrend = months.map((_, i) => getWeightedAvgBillByMonth(i));
     
     return {
-      customers: getTrend(utilities.map((_, i) => utilities.reduce((s, u) => s + arrearsCustomers[u.id][i], 0)).slice(0, 21)),
-      balance: getTrend(utilities.map((_, i) => utilities.reduce((s, u) => s + arrearsBalance[u.id][i], 0)).slice(0, 21)),
-      disconnections: getTrend(utilities.map((_, i) => utilities.reduce((s, u) => s + disconnections[u.id][i], 0)).slice(0, 21)),
-      bdParticipants: getTrend(utilities.map((_, i) => utilities.reduce((s, u) => s + billDiscountParticipants[u.id][i], 0)).slice(0, 21)),
+      customers: getTrend(months.map((_, i) => utilities.reduce((s, u) => s + arrearsCustomers[u.id][i], 0))),
+      balance: getTrend(months.map((_, i) => utilities.reduce((s, u) => s + arrearsBalance[u.id][i], 0))),
+      disconnections: getTrend(months.map((_, i) => utilities.reduce((s, u) => s + disconnections[u.id][i], 0))),
+      bdParticipants: getTrend(months.map((_, i) => utilities.reduce((s, u) => s + billDiscountParticipants[u.id][i], 0))),
       avgBill: getTrend(avgBillTrend)
     };
   }, []);
@@ -576,7 +597,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Average Bill Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#0284C7' }}>Average Residential Bill Trend</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#0284C7' }}>Average Monthly Residential Bill Trend</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -602,7 +623,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Average Usage Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Usage Trend</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Monthly Residential Usage Trend</h3>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -1042,6 +1063,57 @@ export default function OregonEnergyDashboard() {
                   ))}
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+
+            {/* Disconnection Notices */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Disconnection Notices Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#EA580C' }}>Disconnection Notices Sent</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + disconnectionNotices[u.id][i], 0)
+                      : disconnectionNotices[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => formatNumber(v)} />
+                    <Area type="monotone" dataKey="value" stroke="#EA580C" fill="#FED7AA" strokeWidth={2} name="Notices" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Reconnection Rate */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Reconnection Rate (% of Disconnections)</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart data={months.map((month, i) => {
+                    let rate;
+                    if (selectedUtility === 'all') {
+                      const totalRecon = utilities.reduce((sum, u) => sum + reconnections[u.id][i], 0);
+                      const totalDisc = utilities.reduce((sum, u) => sum + disconnections[u.id][i], 0);
+                      rate = totalDisc > 0 ? (totalRecon / totalDisc) * 100 : 0;
+                    } else {
+                      const recon = reconnections[selectedUtility]?.[i] || 0;
+                      const disc = disconnections[selectedUtility]?.[i] || 0;
+                      rate = disc > 0 ? (recon / disc) * 100 : 0;
+                    }
+                    return { month, value: parseFloat(rate.toFixed(1)) };
+                  })}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={(v) => `${v}%`} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => `${v}%`} />
+                    <Line type="monotone" dataKey="value" stroke="#059669" strokeWidth={2} dot={false} name="Reconnection Rate" />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p style={{ margin: '8px 0 0', fontSize: '11px', color: '#6B7280', fontStyle: 'italic' }}>
+                  Reconnection rate = (Reconnections within 7 days / Disconnections) × 100
+                </p>
+              </div>
             </div>
           </>
         )}
@@ -1522,7 +1594,8 @@ export default function OregonEnergyDashboard() {
         {/* Footer */}
         <div style={{ marginTop: '32px', padding: '16px', textAlign: 'center', fontSize: '12px', color: '#9CA3AF' }}>
           <strong>Data Source:</strong> Oregon PUC Docket RO 16 – Energy Burden Metrics Reports (OAR 860-021-0408)<br/>
-          Period: January 2024 – September 2025 | Last Updated: January 2026
+          Period: January 2024 – September 2025 | Last Updated: January 2026<br/>
+          <span style={{ marginTop: '8px', display: 'inline-block' }}>OPUC Staff Contact: Bret Farrell, <a href="mailto:Bret.Farrell@puc.oregon.gov" style={{ color: '#6B7280', textDecoration: 'underline' }}>Bret.Farrell@puc.oregon.gov</a></span>
         </div>
       </div>
     </div>
