@@ -187,6 +187,163 @@ const disconnectionNotices = {
   ipco: [254, 236, 366, 270, 298, 316, 308, 286, 300, 296, 212, 270, 290, 186, 170, 370, 284, 260, 230, 258, 268]
 };
 
+// ==================== GEOGRAPHIC VIEW DATA (Q2 2025) ====================
+// ZIP-level data for geographic visualization
+const geoZipData = {
+  pge: [
+    {zip:"97003",lat:45.527,lng:-122.887,apr:{active:11334,arrears:1862,disc:69},may:{active:11323,arrears:1821,disc:84},jun:{active:11325,arrears:1941,disc:68}},
+    {zip:"97005",lat:45.492,lng:-122.791,apr:{active:12929,arrears:2349,disc:110},may:{active:12918,arrears:2642,disc:116},jun:{active:12921,arrears:2626,disc:69}},
+    {zip:"97006",lat:45.532,lng:-122.849,apr:{active:19823,arrears:3084,disc:96},may:{active:20014,arrears:2912,disc:145},jun:{active:20011,arrears:2963,disc:76}},
+    {zip:"97007",lat:45.47,lng:-122.846,apr:{active:19861,arrears:1923,disc:62},may:{active:19886,arrears:1955,disc:56},jun:{active:19906,arrears:1993,disc:50}},
+    {zip:"97008",lat:45.457,lng:-122.789,apr:{active:11967,arrears:1850,disc:73},may:{active:11968,arrears:1813,disc:86},jun:{active:11966,arrears:1860,disc:50}},
+    {zip:"97015",lat:45.403,lng:-122.549,apr:{active:9307,arrears:1538,disc:61},may:{active:9307,arrears:1563,disc:82},jun:{active:9302,arrears:1611,disc:43}},
+    {zip:"97030",lat:45.506,lng:-122.437,apr:{active:15700,arrears:3428,disc:168},may:{active:15696,arrears:3363,disc:166},jun:{active:15701,arrears:3522,disc:123}},
+    {zip:"97045",lat:45.358,lng:-122.579,apr:{active:22990,arrears:2950,disc:108},may:{active:22985,arrears:3071,disc:113},jun:{active:22992,arrears:2679,disc:88}},
+    {zip:"97080",lat:45.496,lng:-122.427,apr:{active:17047,arrears:2484,disc:79},may:{active:17074,arrears:2579,disc:107},jun:{active:17099,arrears:2585,disc:75}},
+    {zip:"97086",lat:45.448,lng:-122.52,apr:{active:13969,arrears:2142,disc:90},may:{active:13965,arrears:2054,disc:87},jun:{active:13998,arrears:2133,disc:70}},
+    {zip:"97123",lat:45.462,lng:-122.975,apr:{active:19636,arrears:2101,disc:110},may:{active:19682,arrears:1922,disc:115},jun:{active:19704,arrears:2082,disc:68}},
+    {zip:"97124",lat:45.535,lng:-122.957,apr:{active:21879,arrears:2520,disc:114},may:{active:21876,arrears:2492,disc:119},jun:{active:21879,arrears:2592,disc:70}},
+    {zip:"97202",lat:45.483,lng:-122.641,apr:{active:20912,arrears:3038,disc:74},may:{active:20914,arrears:2891,disc:93},jun:{active:20916,arrears:2955,disc:58}},
+    {zip:"97206",lat:45.474,lng:-122.6,apr:{active:22587,arrears:3284,disc:79},may:{active:22577,arrears:3280,disc:99},jun:{active:22584,arrears:3422,disc:59}},
+    {zip:"97209",lat:45.535,lng:-122.685,apr:{active:16511,arrears:3774,disc:117},may:{active:16514,arrears:3758,disc:89},jun:{active:16501,arrears:3869,disc:54}},
+    {zip:"97222",lat:45.442,lng:-122.62,apr:{active:16093,arrears:2890,disc:107},may:{active:16102,arrears:2831,disc:100},jun:{active:16117,arrears:2381,disc:57}},
+    {zip:"97223",lat:45.441,lng:-122.782,apr:{active:21762,arrears:3201,disc:108},may:{active:21753,arrears:3203,disc:123},jun:{active:21743,arrears:3322,disc:97}},
+    {zip:"97229",lat:45.558,lng:-122.819,apr:{active:28913,arrears:2634,disc:102},may:{active:28932,arrears:2627,disc:85},jun:{active:28952,arrears:2311,disc:60}},
+    {zip:"97230",lat:45.56,lng:-122.5,apr:{active:15846,arrears:2821,disc:165},may:{active:15862,arrears:2613,disc:136},jun:{active:15844,arrears:2785,disc:78}},
+    {zip:"97233",lat:45.517,lng:-122.5,apr:{active:15703,arrears:4343,disc:229},may:{active:15697,arrears:4228,disc:233},jun:{active:15684,arrears:4428,disc:164}},
+    {zip:"97236",lat:45.482,lng:-122.51,apr:{active:14294,arrears:3208,disc:183},may:{active:14272,arrears:3061,disc:148},jun:{active:14289,arrears:3192,disc:116}},
+    {zip:"97266",lat:45.482,lng:-122.557,apr:{active:13597,arrears:2858,disc:96},may:{active:13602,arrears:2919,disc:102},jun:{active:13607,arrears:3045,disc:99}},
+    {zip:"97301",lat:44.932,lng:-122.999,apr:{active:20152,arrears:4868,disc:227},may:{active:20175,arrears:4753,disc:242},jun:{active:20315,arrears:4846,disc:158}},
+    {zip:"97302",lat:44.908,lng:-123.034,apr:{active:17894,arrears:2264,disc:114},may:{active:17888,arrears:2142,disc:109},jun:{active:17891,arrears:2225,disc:52}},
+    {zip:"97305",lat:44.978,lng:-122.948,apr:{active:16305,arrears:3903,disc:163},may:{active:16301,arrears:3685,disc:200},jun:{active:16308,arrears:3893,disc:119}}
+  ],
+  nwn: [
+    {zip:"97003",lat:45.527,lng:-122.887,apr:{active:7027,arrears:665,disc:29},may:{active:7032,arrears:709,disc:0},jun:{active:7039,arrears:689,disc:32}},
+    {zip:"97006",lat:45.532,lng:-122.849,apr:{active:9418,arrears:703,disc:26},may:{active:9385,arrears:722,disc:12},jun:{active:9424,arrears:713,disc:21}},
+    {zip:"97007",lat:45.47,lng:-122.846,apr:{active:14541,arrears:698,disc:25},may:{active:14539,arrears:767,disc:15},jun:{active:14554,arrears:758,disc:40}},
+    {zip:"97045",lat:45.358,lng:-122.579,apr:{active:11607,arrears:1074,disc:21},may:{active:11585,arrears:1092,disc:8},jun:{active:11593,arrears:1041,disc:41}},
+    {zip:"97080",lat:45.496,lng:-122.427,apr:{active:11607,arrears:1161,disc:43},may:{active:4411,arrears:1225,disc:0},jun:{active:11647,arrears:854,disc:33}},
+    {zip:"97086",lat:45.448,lng:-122.52,apr:{active:9643,arrears:859,disc:19},may:{active:9566,arrears:841,disc:18},jun:{active:9640,arrears:803,disc:16}},
+    {zip:"97123",lat:45.462,lng:-122.975,apr:{active:12736,arrears:623,disc:31},may:{active:12742,arrears:1360,disc:49},jun:{active:12763,arrears:932,disc:21}},
+    {zip:"97124",lat:45.535,lng:-122.957,apr:{active:10799,arrears:428,disc:41},may:{active:10802,arrears:658,disc:27},jun:{active:10812,arrears:645,disc:20}},
+    {zip:"97202",lat:45.483,lng:-122.641,apr:{active:11785,arrears:893,disc:31},may:{active:5220,arrears:989,disc:0},jun:{active:11774,arrears:730,disc:9}},
+    {zip:"97206",lat:45.474,lng:-122.6,apr:{active:14103,arrears:1339,disc:41},may:{active:2655,arrears:1459,disc:0},jun:{active:14042,arrears:941,disc:6}},
+    {zip:"97211",lat:45.576,lng:-122.638,apr:{active:10561,arrears:760,disc:49},may:{active:10560,arrears:971,disc:28},jun:{active:10544,arrears:850,disc:17}},
+    {zip:"97217",lat:45.591,lng:-122.693,apr:{active:10683,arrears:962,disc:33},may:{active:10674,arrears:1129,disc:31},jun:{active:10665,arrears:1020,disc:39}},
+    {zip:"97222",lat:45.442,lng:-122.62,apr:{active:8165,arrears:856,disc:28},may:{active:7762,arrears:871,disc:5},jun:{active:8133,arrears:838,disc:5}},
+    {zip:"97223",lat:45.441,lng:-122.782,apr:{active:13106,arrears:820,disc:22},may:{active:13085,arrears:849,disc:5},jun:{active:13124,arrears:809,disc:34}},
+    {zip:"97229",lat:45.558,lng:-122.819,apr:{active:21977,arrears:1250,disc:44},may:{active:21986,arrears:1292,disc:26},jun:{active:22031,arrears:1286,disc:31}},
+    {zip:"97230",lat:45.56,lng:-122.5,apr:{active:9478,arrears:1103,disc:30},may:{active:8478,arrears:1152,disc:2},jun:{active:9467,arrears:992,disc:25}},
+    {zip:"97301",lat:44.932,lng:-122.999,apr:{active:8990,arrears:997,disc:61},may:{active:8975,arrears:1102,disc:57},jun:{active:8983,arrears:1275,disc:24}},
+    {zip:"97302",lat:44.908,lng:-123.034,apr:{active:10458,arrears:680,disc:33},may:{active:10426,arrears:733,disc:2},jun:{active:10451,arrears:702,disc:28}},
+    {zip:"97305",lat:44.978,lng:-122.948,apr:{active:7063,arrears:665,disc:38},may:{active:7038,arrears:695,disc:24},jun:{active:7046,arrears:674,disc:46}}
+  ],
+  avista: [
+    {zip:"97470",lat:43.22,lng:-123.35,apr:{active:3328,arrears:527,disc:4},may:{active:3323,arrears:550,disc:3},jun:{active:3320,arrears:570,disc:2}},
+    {zip:"97471",lat:43.28,lng:-123.38,apr:{active:5195,arrears:430,disc:6},may:{active:5190,arrears:579,disc:5},jun:{active:5180,arrears:565,disc:3}},
+    {zip:"97502",lat:42.3,lng:-122.92,apr:{active:9199,arrears:1116,disc:11},may:{active:9162,arrears:1401,disc:10},jun:{active:9144,arrears:1357,disc:6}},
+    {zip:"97503",lat:42.38,lng:-122.83,apr:{active:6404,arrears:697,disc:8},may:{active:6406,arrears:717,disc:7},jun:{active:6401,arrears:689,disc:4}},
+    {zip:"97520",lat:42.2,lng:-122.7,apr:{active:13106,arrears:997,disc:16},may:{active:13097,arrears:1122,disc:14},jun:{active:13115,arrears:1141,disc:9}},
+    {zip:"97524",lat:42.45,lng:-122.85,apr:{active:7039,arrears:442,disc:8},may:{active:7050,arrears:468,disc:7},jun:{active:7057,arrears:486,disc:5}},
+    {zip:"97527",lat:42.42,lng:-123.33,apr:{active:6332,arrears:771,disc:8},may:{active:6328,arrears:804,disc:7},jun:{active:6313,arrears:796,disc:4}},
+    {zip:"97530",lat:42.12,lng:-122.9,apr:{active:5544,arrears:537,disc:7},may:{active:5535,arrears:539,disc:6},jun:{active:5515,arrears:534,disc:4}},
+    {zip:"97601",lat:42.22,lng:-121.75,apr:{active:6433,arrears:803,disc:8},may:{active:6407,arrears:783,disc:7},jun:{active:6362,arrears:857,disc:4}},
+    {zip:"97603",lat:42.18,lng:-121.72,apr:{active:8852,arrears:990,disc:11},may:{active:8816,arrears:1016,disc:9},jun:{active:8801,arrears:986,disc:6}},
+    {zip:"97850",lat:45.33,lng:-118.08,apr:{active:4853,arrears:314,disc:6},may:{active:4857,arrears:317,disc:5},jun:{active:4851,arrears:334,disc:3}}
+  ],
+  cng: [
+    {zip:"97701",lat:44.06,lng:-121.31,apr:{active:10842,arrears:576,disc:2},may:{active:10821,arrears:621,disc:14},jun:{active:10857,arrears:625,disc:1}},
+    {zip:"97702",lat:43.99,lng:-121.35,apr:{active:14441,arrears:801,disc:8},may:{active:14446,arrears:844,disc:18},jun:{active:14458,arrears:798,disc:3}},
+    {zip:"97703",lat:44.12,lng:-121.29,apr:{active:10056,arrears:459,disc:5},may:{active:10056,arrears:446,disc:3},jun:{active:10048,arrears:442,disc:2}},
+    {zip:"97707",lat:43.88,lng:-121.5,apr:{active:3976,arrears:82,disc:1},may:{active:3983,arrears:101,disc:0},jun:{active:3987,arrears:110,disc:1}},
+    {zip:"97741",lat:44.59,lng:-121.13,apr:{active:1598,arrears:171,disc:3},may:{active:1599,arrears:176,disc:6},jun:{active:1592,arrears:158,disc:0}},
+    {zip:"97754",lat:44.27,lng:-120.9,apr:{active:2989,arrears:356,disc:2},may:{active:3004,arrears:367,disc:3},jun:{active:2996,arrears:352,disc:7}},
+    {zip:"97756",lat:44.27,lng:-121.17,apr:{active:9870,arrears:524,disc:5},may:{active:9879,arrears:540,disc:11},jun:{active:9896,arrears:535,disc:2}},
+    {zip:"97801",lat:45.67,lng:-118.78,apr:{active:4896,arrears:524,disc:17},may:{active:4883,arrears:521,disc:23},jun:{active:4859,arrears:536,disc:9}},
+    {zip:"97814",lat:44.78,lng:-117.83,apr:{active:3511,arrears:341,disc:5},may:{active:3509,arrears:354,disc:6},jun:{active:3494,arrears:314,disc:6}},
+    {zip:"97838",lat:45.83,lng:-119.17,apr:{active:4271,arrears:477,disc:8},may:{active:4262,arrears:506,disc:12},jun:{active:4261,arrears:522,disc:4}},
+    {zip:"97914",lat:44.05,lng:-116.97,apr:{active:2778,arrears:334,disc:16},may:{active:2763,arrears:324,disc:11},jun:{active:2746,arrears:317,disc:11}}
+  ],
+  pac: [
+    {zip:"97756",lat:44.27,lng:-121.17,apr:{active:14291,arrears:2764,disc:31},may:{active:14300,arrears:2794,disc:82},jun:{active:14313,arrears:2690,disc:57}},
+    {zip:"97471",lat:43.28,lng:-123.38,apr:{active:10913,arrears:1963,disc:24},may:{active:10899,arrears:2645,disc:45},jun:{active:10900,arrears:1960,disc:74}},
+    {zip:"97211",lat:45.576,lng:-122.638,apr:{active:15281,arrears:2477,disc:34},may:{active:15342,arrears:2547,disc:80},jun:{active:15348,arrears:2348,disc:48}},
+    {zip:"97351",lat:44.87,lng:-123.02,apr:{active:4098,arrears:1008,disc:17},may:{active:4113,arrears:1122,disc:37},jun:{active:4102,arrears:1037,disc:22}},
+    {zip:"97701",lat:44.06,lng:-121.31,apr:{active:14440,arrears:2592,disc:21},may:{active:14497,arrears:2508,disc:61},jun:{active:14518,arrears:2446,disc:26}},
+    {zip:"97520",lat:42.2,lng:-122.7,apr:{active:2030,arrears:350,disc:2},may:{active:2032,arrears:346,disc:8},jun:{active:2040,arrears:330,disc:4}},
+    {zip:"97527",lat:42.42,lng:-123.33,apr:{active:16394,arrears:3526,disc:48},may:{active:16375,arrears:3445,disc:134},jun:{active:16399,arrears:3175,disc:68}},
+    {zip:"97530",lat:42.12,lng:-122.9,apr:{active:4056,arrears:706,disc:4},may:{active:4044,arrears:684,disc:31},jun:{active:4043,arrears:675,disc:10}},
+    {zip:"97525",lat:42.43,lng:-123.0,apr:{active:2542,arrears:631,disc:9},may:{active:2549,arrears:597,disc:17},jun:{active:2543,arrears:578,disc:14}},
+    {zip:"97212",lat:45.546,lng:-122.643,apr:{active:11954,arrears:1682,disc:17},may:{active:11978,arrears:1704,disc:56},jun:{active:11991,arrears:1619,disc:32}},
+    {zip:"97504",lat:42.35,lng:-122.85,apr:{active:21326,arrears:3898,disc:70},may:{active:21335,arrears:5239,disc:108},jun:{active:21359,arrears:3808,disc:213}},
+    {zip:"97470",lat:43.22,lng:-123.35,apr:{active:9661,arrears:2539,disc:30},may:{active:9652,arrears:2453,disc:124},jun:{active:9641,arrears:2369,disc:43}},
+    {zip:"97138",lat:46.0,lng:-123.92,apr:{active:7030,arrears:1254,disc:28},may:{active:7025,arrears:1252,disc:42},jun:{active:7032,arrears:1254,disc:23}},
+    {zip:"97601",lat:42.22,lng:-121.75,apr:{active:11714,arrears:2576,disc:67},may:{active:11703,arrears:2785,disc:69},jun:{active:11720,arrears:2538,disc:151}},
+    {zip:"97540",lat:42.12,lng:-122.82,apr:{active:3785,arrears:683,disc:8},may:{active:3818,arrears:672,disc:39},jun:{active:3800,arrears:659,disc:7}},
+    {zip:"97031",lat:45.68,lng:-121.52,apr:{active:6684,arrears:904,disc:12},may:{active:6687,arrears:927,disc:18},jun:{active:6675,arrears:854,disc:20}},
+    {zip:"97217",lat:45.591,lng:-122.693,apr:{active:5907,arrears:1068,disc:15},may:{active:5921,arrears:1107,disc:35},jun:{active:5965,arrears:1002,disc:41}},
+    {zip:"97338",lat:44.97,lng:-123.35,apr:{active:9557,arrears:1986,disc:11},may:{active:9574,arrears:1991,disc:40},jun:{active:9537,arrears:1827,disc:30}},
+    {zip:"97367",lat:44.88,lng:-124.02,apr:{active:7553,arrears:1296,disc:19},may:{active:7578,arrears:1291,disc:45},jun:{active:7566,arrears:1243,disc:23}},
+    {zip:"97524",lat:42.45,lng:-122.85,apr:{active:6983,arrears:1664,disc:31},may:{active:6999,arrears:1584,disc:82},jun:{active:7016,arrears:1504,disc:23}},
+    {zip:"97501",lat:42.33,lng:-122.87,apr:{active:19469,arrears:4844,disc:90},may:{active:19520,arrears:4640,disc:178},jun:{active:19540,arrears:4340,disc:201}},
+    {zip:"97703",lat:44.12,lng:-121.29,apr:{active:14183,arrears:1178,disc:11},may:{active:14206,arrears:1486,disc:24},jun:{active:14247,arrears:1186,disc:18}},
+    {zip:"97321",lat:44.65,lng:-123.07,apr:{active:12830,arrears:2183,disc:24},may:{active:12834,arrears:2274,disc:57},jun:{active:12879,arrears:1930,disc:75}},
+    {zip:"97333",lat:44.55,lng:-123.25,apr:{active:9981,arrears:1636,disc:23},may:{active:10042,arrears:1731,disc:61},jun:{active:10139,arrears:1630,disc:35}},
+    {zip:"97702",lat:43.99,lng:-121.35,apr:{active:20298,arrears:2867,disc:26},may:{active:20390,arrears:2853,disc:89},jun:{active:20424,arrears:2693,disc:70}},
+    {zip:"97330",lat:44.58,lng:-123.27,apr:{active:14260,arrears:1892,disc:23},may:{active:14290,arrears:2008,disc:35},jun:{active:14531,arrears:1811,disc:56}},
+    {zip:"97754",lat:44.27,lng:-120.9,apr:{active:7879,arrears:1724,disc:30},may:{active:7879,arrears:1793,disc:51},jun:{active:7878,arrears:1679,disc:55}},
+    {zip:"97526",lat:42.45,lng:-123.32,apr:{active:16814,arrears:3630,disc:40},may:{active:16806,arrears:3852,disc:62},jun:{active:16870,arrears:3286,disc:158}},
+    {zip:"97801",lat:45.67,lng:-118.78,apr:{active:8943,arrears:2282,disc:30},may:{active:8962,arrears:2184,disc:93},jun:{active:8956,arrears:2094,disc:48}},
+    {zip:"97503",lat:42.38,lng:-122.83,apr:{active:4668,arrears:1469,disc:15},may:{active:4689,arrears:1404,disc:68},jun:{active:4686,arrears:1299,disc:29}},
+    {zip:"97322",lat:44.63,lng:-123.1,apr:{active:14414,arrears:3771,disc:35},may:{active:14445,arrears:3675,disc:129},jun:{active:14433,arrears:3389,disc:58}},
+    {zip:"97502",lat:42.3,lng:-122.92,apr:{active:12616,arrears:2597,disc:31},may:{active:12609,arrears:2456,disc:81},jun:{active:12626,arrears:2326,disc:99}},
+    {zip:"97603",lat:42.18,lng:-121.72,apr:{active:14095,arrears:3479,disc:67},may:{active:14100,arrears:3426,disc:122},jun:{active:14087,arrears:3297,disc:110}},
+    {zip:"97103",lat:46.18,lng:-123.83,apr:{active:8590,arrears:1417,disc:11},may:{active:8609,arrears:1611,disc:33},jun:{active:8619,arrears:1461,disc:41}},
+    {zip:"97213",lat:45.538,lng:-122.6,apr:{active:11324,arrears:1462,disc:13},may:{active:11400,arrears:1759,disc:42},jun:{active:11384,arrears:1542,disc:25}}
+  ],
+  ipco: [
+    {zip:"97834",lat:44.98,lng:-117.17,apr:{active:661,arrears:34,disc:0},may:{active:660,arrears:48,disc:0},jun:{active:661,arrears:36,disc:0}},
+    {zip:"97870",lat:44.77,lng:-117.18,apr:{active:434,arrears:23,disc:0},may:{active:436,arrears:32,disc:0},jun:{active:437,arrears:31,disc:1}},
+    {zip:"97901",lat:43.88,lng:-117.03,apr:{active:377,arrears:36,disc:0},may:{active:379,arrears:36,disc:1},jun:{active:377,arrears:40,disc:1}},
+    {zip:"97907",lat:44.15,lng:-117.42,apr:{active:378,arrears:43,disc:1},may:{active:382,arrears:51,disc:0},jun:{active:383,arrears:42,disc:2}},
+    {zip:"97910",lat:43.12,lng:-117.02,apr:{active:368,arrears:30,disc:1},may:{active:382,arrears:34,disc:1},jun:{active:382,arrears:27,disc:0}},
+    {zip:"97913",lat:44.02,lng:-116.97,apr:{active:2274,arrears:388,disc:10},may:{active:2294,arrears:366,disc:6},jun:{active:2289,arrears:356,disc:7}},
+    {zip:"97914",lat:44.05,lng:-116.97,apr:{active:7106,arrears:1223,disc:41},may:{active:7117,arrears:1171,disc:22},jun:{active:7132,arrears:1110,disc:35}},
+    {zip:"97918",lat:43.97,lng:-117.25,apr:{active:1993,arrears:270,disc:18},may:{active:1996,arrears:238,disc:9},jun:{active:2003,arrears:241,disc:10}}
+  ]
+};
+
+const geoRegions = {
+  statewide: { name: '🗺️ Entire State', latMin: 41.95, latMax: 46.30, lngMin: -124.60, lngMax: -116.45 },
+  portland: { name: 'Portland Metro', latMin: 45.30, latMax: 45.75, lngMin: -123.15, lngMax: -122.25 },
+  salem: { name: 'Salem/Albany', latMin: 44.10, latMax: 45.30, lngMin: -123.85, lngMax: -122.35 },
+  southern: { name: 'Southern Oregon', latMin: 41.95, latMax: 43.70, lngMin: -124.20, lngMax: -120.80 },
+  central: { name: 'Central Oregon', latMin: 43.40, latMax: 45.00, lngMin: -122.10, lngMax: -119.70 },
+  coast: { name: 'Oregon Coast', latMin: 44.10, latMax: 46.30, lngMin: -124.25, lngMax: -123.30 },
+  eastern: { name: 'Eastern Oregon', latMin: 41.95, latMax: 46.05, lngMin: -120.10, lngMax: -116.85 }
+};
+
+const geoCities = {
+  statewide: [{name:'Portland',lat:45.52,lng:-122.68},{name:'Salem',lat:44.94,lng:-123.03},{name:'Eugene',lat:44.05,lng:-123.09},{name:'Bend',lat:44.06,lng:-121.31},{name:'Medford',lat:42.33,lng:-122.87},{name:'Pendleton',lat:45.67,lng:-118.78},{name:'Ontario',lat:44.03,lng:-116.96},{name:'Klamath Falls',lat:42.22,lng:-121.77},{name:'Astoria',lat:46.18,lng:-123.83}],
+  portland: [{name:'Portland',lat:45.52,lng:-122.68},{name:'Gresham',lat:45.50,lng:-122.43},{name:'Hillsboro',lat:45.52,lng:-122.99},{name:'Beaverton',lat:45.49,lng:-122.80}],
+  salem: [{name:'Salem',lat:44.94,lng:-123.03},{name:'Albany',lat:44.63,lng:-123.10},{name:'Corvallis',lat:44.56,lng:-123.26},{name:'Dallas',lat:44.92,lng:-123.32}],
+  southern: [{name:'Medford',lat:42.33,lng:-122.87},{name:'Ashland',lat:42.19,lng:-122.71},{name:'Grants Pass',lat:42.44,lng:-123.33},{name:'Klamath Falls',lat:42.22,lng:-121.77},{name:'Roseburg',lat:43.22,lng:-123.34}],
+  central: [{name:'Bend',lat:44.06,lng:-121.31},{name:'Redmond',lat:44.27,lng:-121.17},{name:'Prineville',lat:44.30,lng:-120.83},{name:'Madras',lat:44.63,lng:-121.13}],
+  coast: [{name:'Astoria',lat:46.18,lng:-123.83},{name:'Seaside',lat:45.99,lng:-123.92},{name:'Tillamook',lat:45.46,lng:-123.84},{name:'Lincoln City',lat:44.96,lng:-124.02},{name:'Newport',lat:44.63,lng:-124.05}],
+  eastern: [{name:'Pendleton',lat:45.67,lng:-118.78},{name:'Hermiston',lat:45.84,lng:-119.29},{name:'La Grande',lat:45.32,lng:-118.09},{name:'Baker City',lat:44.77,lng:-117.83},{name:'Ontario',lat:44.03,lng:-116.96},{name:'Vale',lat:43.98,lng:-117.24},{name:'Nyssa',lat:44.02,lng:-116.97}]
+};
+
+const geoMetricConfig = {
+  arrears_rate: { label: 'Arrears Rate (%)', format: v => v.toFixed(1) + '%' },
+  disc_rate: { label: 'Disconnection Rate (%)', format: v => v.toFixed(2) + '%' },
+  arrears_count: { label: 'Accounts in Arrears', format: v => v.toLocaleString() },
+  disconnections: { label: 'Disconnections', format: v => v.toLocaleString() }
+};
+
+const geoMonthLabels = { apr: 'April 2025', may: 'May 2025', jun: 'June 2025' };
+const geoUtilityColors = { 'pge': '#16a34a', 'nwn': '#2563eb', 'avista': '#ea580c', 'cng': '#9333ea', 'pac': '#dc2626', 'ipco': '#0891b2' };
+const geoUtilityNames = { 'pge': 'PGE', 'nwn': 'NW Natural', 'avista': 'Avista', 'cng': 'Cascade', 'pac': 'Pacific Power', 'ipco': 'Idaho Power' };
+
 // ==================== UTILITY FUNCTIONS ====================
 const formatCurrency = (val) => {
   if (val >= 1000000) return `$${(val / 1000000).toFixed(1)}M`;
@@ -215,6 +372,14 @@ const getTrend = (data, periods = 3) => {
 export default function OregonEnergyDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedUtility, setSelectedUtility] = useState('all');
+  
+  // Geographic tab state
+  const [geoMonth, setGeoMonth] = useState('jun');
+  const [geoMetric, setGeoMetric] = useState('arrears_rate');
+  const [geoUtility, setGeoUtility] = useState('all');
+  const [geoHover, setGeoHover] = useState(null);
+  const [geoSelected, setGeoSelected] = useState(null);
+  const [geoRegion, setGeoRegion] = useState('statewide');
 
   const tabs = [
     { id: 'overview', label: 'Overview' },
@@ -222,6 +387,7 @@ export default function OregonEnergyDashboard() {
     { id: 'disconnections', label: 'Disconnections' },
     { id: 'billDiscount', label: 'Bill Discounts' },
     { id: 'comparison', label: 'Utility Comparison' },
+    { id: 'geographic', label: 'Geographic View' },
     { id: 'export', label: 'Export Data' }
   ];
 
@@ -1373,6 +1539,218 @@ export default function OregonEnergyDashboard() {
             </div>
           </>
         )}
+
+        {/* ==================== GEOGRAPHIC VIEW TAB ==================== */}
+        {activeTab === 'geographic' && (() => {
+          const bounds = geoRegions[geoRegion];
+          const mapWidth = 850, mapHeight = 520;
+          const { latMin, latMax, lngMin, lngMax } = bounds;
+          const xScale = (lng) => ((lng - lngMin) / (lngMax - lngMin)) * (mapWidth - 60) + 30;
+          const yScale = (lat) => mapHeight - 30 - ((lat - latMin) / (latMax - latMin)) * (mapHeight - 60);
+          
+          const getGeoMetricValue = (data, month, metric) => {
+            const d = data[month];
+            if (!d || !d.active) return 0;
+            switch(metric) {
+              case 'arrears_rate': return d.active > 0 ? (d.arrears / d.active * 100) : 0;
+              case 'disc_rate': return d.active > 0 ? (d.disc / d.active * 100) : 0;
+              case 'arrears_count': return d.arrears;
+              case 'disconnections': return d.disc;
+              default: return 0;
+            }
+          };
+          
+          let allGeoData = [];
+          const utilKeys = geoUtility === 'all' ? ['pge', 'nwn', 'avista', 'cng', 'pac', 'ipco'] : [geoUtility];
+          utilKeys.forEach(uk => {
+            if (geoZipData[uk]) {
+              geoZipData[uk].forEach(d => {
+                if (d[geoMonth]?.active > 20) {
+                  allGeoData.push({ ...d, utility: uk, value: getGeoMetricValue(d, geoMonth, geoMetric) });
+                }
+              });
+            }
+          });
+          allGeoData.sort((a, b) => b.value - a.value);
+          
+          const filteredGeoData = allGeoData
+            .filter(d => d.lat >= latMin && d.lat <= latMax && d.lng >= lngMin && d.lng <= lngMax)
+            .map(d => ({ ...d, x: xScale(d.lng), y: yScale(d.lat) }));
+          
+          const geoValues = allGeoData.map(d => d.value).filter(v => v > 0);
+          const geoMinVal = geoValues.length ? Math.min(...geoValues) : 0;
+          const geoMaxVal = geoValues.length ? Math.max(...geoValues) : 1;
+          
+          const getGeoColor = (value, util) => {
+            const t = geoMaxVal > geoMinVal ? (value - geoMinVal) / (geoMaxVal - geoMinVal) : 0;
+            const l = 82 - t * 42;
+            if (util === 'pge') return `hsl(142, 65%, ${l}%)`;
+            if (util === 'nwn') return `hsl(217, 80%, ${l}%)`;
+            if (util === 'avista') return `hsl(25, 85%, ${l}%)`;
+            if (util === 'cng') return `hsl(271, 70%, ${l}%)`;
+            if (util === 'ipco') return `hsl(188, 85%, ${l}%)`;
+            return `hsl(0, 70%, ${l}%)`;
+          };
+          
+          const cities = geoCities[geoRegion] || [];
+          const activeZip = geoSelected || geoHover;
+          const activeItems = activeZip ? filteredGeoData.filter(d => d.zip === activeZip) : [];
+          const cfg = geoMetricConfig[geoMetric];
+          const isStatewide = geoRegion === 'statewide';
+          
+          return (
+            <>
+              <div style={{ background: '#EFF6FF', borderRadius: '12px', padding: '16px', marginBottom: '24px', border: '1px solid #BFDBFE' }}>
+                <p style={{ margin: 0, color: '#1E40AF', fontSize: '14px' }}>
+                  <strong>Geographic View</strong> — Explore ZIP code-level utility data across Oregon. Q2 2025 data (April–June). Click a circle to pin details, hover to preview.
+                </p>
+              </div>
+              
+              <div style={{ display: 'flex', gap: '24px' }}>
+                {/* Map Area */}
+                <div style={{ flex: 1, background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+                  {/* Controls */}
+                  <div style={{ padding: '12px 16px', borderBottom: '1px solid #e5e7eb', display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <select value={geoRegion} onChange={e => setGeoRegion(e.target.value)} style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px' }}>
+                      {Object.entries(geoRegions).map(([k, v]) => <option key={k} value={k}>{v.name}</option>)}
+                    </select>
+                    <select value={geoUtility} onChange={e => setGeoUtility(e.target.value)} style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px' }}>
+                      <option value="all">All Utilities</option>
+                      {Object.entries(geoUtilityNames).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                    </select>
+                    <select value={geoMonth} onChange={e => setGeoMonth(e.target.value)} style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px' }}>
+                      <option value="apr">April 2025</option>
+                      <option value="may">May 2025</option>
+                      <option value="jun">June 2025</option>
+                    </select>
+                    <select value={geoMetric} onChange={e => setGeoMetric(e.target.value)} style={{ padding: '6px 10px', border: '1px solid #e2e8f0', borderRadius: '6px', fontSize: '13px' }}>
+                      {Object.entries(geoMetricConfig).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+                    </select>
+                  </div>
+                  
+                  {/* Map SVG */}
+                  <div style={{ position: 'relative' }}>
+                    <svg width="100%" height="520" viewBox={`0 0 ${mapWidth} ${mapHeight}`} style={{ background: 'linear-gradient(180deg, #e0f2fe 0%, #ecfdf5 100%)', display: 'block' }}>
+                      {/* State outline */}
+                      {isStatewide && (
+                        <path d={`M${xScale(-124.55)},${yScale(46.26)} L${xScale(-123.36)},${yScale(46.26)} L${xScale(-122.78)},${yScale(45.87)} L${xScale(-122.24)},${yScale(45.55)} L${xScale(-121.20)},${yScale(45.70)} L${xScale(-119.99)},${yScale(45.93)} L${xScale(-117.03)},${yScale(46.00)} L${xScale(-116.92)},${yScale(44.09)} L${xScale(-117.03)},${yScale(42.00)} L${xScale(-120.00)},${yScale(42.00)} L${xScale(-124.21)},${yScale(42.00)} L${xScale(-124.55)},${yScale(42.84)} L${xScale(-124.06)},${yScale(44.66)} L${xScale(-124.06)},${yScale(46.00)} Z`} 
+                          fill="#f0fdf4" stroke="#64748b" strokeWidth="2" />
+                      )}
+                      
+                      {/* ZIP code circles */}
+                      {filteredGeoData.map((d, idx) => {
+                        const isActive = d.zip === activeZip;
+                        const sameZip = filteredGeoData.filter(x => x.zip === d.zip);
+                        const zipIdx = sameZip.indexOf(d);
+                        const offset = sameZip.length > 1 ? (zipIdx - (sameZip.length-1)/2) * (isStatewide ? 6 : 12) : 0;
+                        const radius = isStatewide ? 5 : 9;
+                        
+                        return (
+                          <g key={`${d.zip}-${d.utility}-${idx}`} style={{ cursor: 'pointer' }}
+                            onMouseEnter={() => setGeoHover(d.zip)} onMouseLeave={() => setGeoHover(null)}
+                            onClick={() => setGeoSelected(geoSelected === d.zip ? null : d.zip)}>
+                            {isActive && <circle cx={d.x + offset} cy={d.y} r={radius + 5} fill="none" stroke={geoUtilityColors[d.utility]} strokeWidth="2" />}
+                            <circle cx={d.x + offset} cy={d.y} r={radius} fill={getGeoColor(d.value, d.utility)} stroke="white" strokeWidth={isStatewide ? 1 : 1.5} />
+                            {!isStatewide && <text x={d.x + offset} y={d.y + 3} fontSize="7" fill="#1e293b" textAnchor="middle" fontWeight="700">{d.zip.slice(-2)}</text>}
+                          </g>
+                        );
+                      })}
+                      
+                      {/* City markers */}
+                      {cities.map(c => (
+                        <g key={c.name}>
+                          <circle cx={xScale(c.lng)} cy={yScale(c.lat)} r={isStatewide ? 2 : 3} fill="#1e293b" />
+                          <text x={xScale(c.lng)} y={yScale(c.lat) - (isStatewide ? 5 : 7)} fontSize={isStatewide ? 8 : 10} fill="#1e293b" textAnchor="middle" fontWeight="600">{c.name}</text>
+                        </g>
+                      ))}
+                    </svg>
+                    
+                    {/* Legend */}
+                    <div style={{ position: 'absolute', bottom: 8, left: 8, background: 'white', borderRadius: 6, padding: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.1)', fontSize: 9 }}>
+                      <div style={{ fontWeight: 600, marginBottom: 4 }}>{cfg.label}</div>
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
+                        {Object.entries(geoUtilityNames).map(([uk, uname]) => (
+                          <div key={uk} style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <div style={{ width: 24, height: 5, borderRadius: 2, background: `linear-gradient(to right, ${getGeoColor(geoMinVal, uk)}, ${getGeoColor(geoMaxVal, uk)})` }} />
+                            <span style={{ color: '#64748b', fontSize: 7 }}>{uname.split(' ')[0]}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 3, color: '#94a3b8', fontSize: 8 }}>
+                        <span>{cfg.format(geoMinVal)}</span><span>{cfg.format(geoMaxVal)}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Hover tooltip */}
+                    {geoHover && !geoSelected && activeItems.length > 0 && (
+                      <div style={{ position: 'absolute', top: 8, right: 8, background: 'white', borderRadius: 6, padding: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.15)', minWidth: 160 }}>
+                        <div style={{ fontSize: 15, fontWeight: 700 }}>ZIP {geoHover}</div>
+                        <div style={{ fontSize: 10, color: '#64748b', marginBottom: 6 }}>{geoMonthLabels[geoMonth]}</div>
+                        {activeItems.map(d => (
+                          <div key={d.utility} style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 0', borderTop: '1px solid #f1f5f9', fontSize: 11 }}>
+                            <span style={{ color: geoUtilityColors[d.utility], fontWeight: 600 }}>{geoUtilityNames[d.utility]}</span>
+                            <span style={{ fontWeight: 600 }}>{cfg.format(d.value)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Sidebar */}
+                <div style={{ width: '280px', background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', display: 'flex', flexDirection: 'column', overflow: 'hidden', maxHeight: '568px' }}>
+                  {activeItems.length > 0 ? (
+                    <div style={{ padding: 14, borderBottom: '1px solid #e2e8f0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div>
+                          <div style={{ fontSize: 20, fontWeight: 700, color: '#1E3A5F' }}>ZIP {activeZip}</div>
+                          <div style={{ fontSize: 11, color: '#64748b' }}>{geoMonthLabels[geoMonth]}</div>
+                        </div>
+                        {geoSelected && <button onClick={() => setGeoSelected(null)} style={{ background: '#f1f5f9', border: 'none', width: 24, height: 24, borderRadius: 4, cursor: 'pointer', fontSize: 14 }}>×</button>}
+                      </div>
+                      {activeItems.map(item => (
+                        <div key={item.utility} style={{ marginTop: 10, background: '#f8fafc', borderRadius: 6, padding: 10, borderLeft: `3px solid ${geoUtilityColors[item.utility]}` }}>
+                          <div style={{ fontSize: 11, fontWeight: 600, color: geoUtilityColors[item.utility], marginBottom: 4 }}>{geoUtilityNames[item.utility]}</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, fontSize: 11 }}>
+                            <div><span style={{ color: '#64748b' }}>Active:</span> <strong>{item[geoMonth].active.toLocaleString()}</strong></div>
+                            <div><span style={{ color: '#64748b' }}>Arrears:</span> <strong>{item[geoMonth].arrears.toLocaleString()}</strong></div>
+                            <div><span style={{ color: '#64748b' }}>Rate:</span> <strong>{(item[geoMonth].arrears/item[geoMonth].active*100).toFixed(1)}%</strong></div>
+                            <div><span style={{ color: '#64748b' }}>Disc:</span> <strong>{item[geoMonth].disc}</strong></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ padding: 16, color: '#64748b' }}>
+                      <div style={{ fontSize: 13, fontWeight: 500 }}>Select a ZIP code</div>
+                      <div style={{ fontSize: 11, color: '#94a3b8' }}>Hover to preview, click to pin</div>
+                    </div>
+                  )}
+                  
+                  <div style={{ flex: 1, overflow: 'auto' }}>
+                    <div style={{ padding: '10px 14px', borderBottom: '1px solid #e2e8f0', background: '#f8fafc', position: 'sticky', top: 0 }}>
+                      <div style={{ fontSize: 10, fontWeight: 600, color: '#475569', textTransform: 'uppercase' }}>
+                        Top by {cfg.label}
+                      </div>
+                    </div>
+                    {(isStatewide ? allGeoData : filteredGeoData).slice(0, 50).map((d, i) => (
+                      <div key={`${d.zip}-${d.utility}-${i}`} style={{ display: 'flex', alignItems: 'center', padding: '6px 14px', cursor: 'pointer',
+                        background: activeZip === d.zip ? '#f1f5f9' : 'transparent', borderLeft: activeZip === d.zip ? `3px solid ${geoUtilityColors[d.utility]}` : '3px solid transparent' }}
+                        onMouseEnter={() => setGeoHover(d.zip)} onMouseLeave={() => setGeoHover(null)} onClick={() => setGeoSelected(geoSelected === d.zip ? null : d.zip)}>
+                        <span style={{ width: 20, fontSize: 10, color: '#94a3b8' }}>{i + 1}</span>
+                        <span style={{ flex: 1, fontSize: 12, fontWeight: 500 }}>{d.zip}</span>
+                        <span style={{ fontSize: 8, padding: '2px 4px', borderRadius: 3, marginRight: 6, background: `${geoUtilityColors[d.utility]}15`, color: geoUtilityColors[d.utility], fontWeight: 700 }}>
+                          {d.utility === 'nwn' ? 'NWN' : d.utility === 'cng' ? 'CAS' : d.utility === 'avista' ? 'AVA' : d.utility === 'pac' ? 'PAC' : d.utility === 'ipco' ? 'IDA' : 'PGE'}
+                        </span>
+                        <span style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>{cfg.format(d.value)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          );
+        })()}
 
         {/* ==================== EXPORT DATA TAB ==================== */}
         {activeTab === 'export' && (
