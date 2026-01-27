@@ -187,6 +187,39 @@ const disconnectionNotices = {
   ipco: [254, 236, 366, 270, 298, 316, 308, 286, 300, 296, 212, 270, 290, 186, 170, 370, 284, 260, 230, 258, 268]
 };
 
+// Bill Discount Recipient Service Disconnections (Jan 2024 - Sep 2025)
+// Source: Oregon PUC EBMR Reports - Table 3 Line 5 (4h)
+const billDiscountDisconnections = {
+  pge: [266, 833, 908, 1653, 1534, 1257, 1236, 1318, 1292, 1483, 857, 95, 0, 0, 0, 1182, 2054, 1440, 1752, 1001, 1822],
+  pac: [264, 265, 268, 288, 263, 265, 249, 245, 262, 262, 225, 153, 219, 222, 330, 364, 420, 393, 995, 708, 1016],
+  nwn: [217, 342, 238, 362, 494, 322, 425, 408, 25, 380, 281, 169, 176, 371, 620, 756, 397, 559, 614, 436, 327],
+  avista: [10, 20, 15, 30, 23, 16, 24, 17, 7, 18, 11, 14, 10, 20, 15, 30, 23, 16, 26, 16, 17],
+  cng: [0, 0, 5, 16, 28, 13, 29, 41, 39, 13, 3, 1, 0, 0, 1, 29, 47, 12, 6, 1, 1],
+  ipco: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 0, 1, 0, 0, 0]
+};
+
+// Bill Discount Program Participants with Arrears (Jan 2024 - Sep 2025)
+// Source: Oregon PUC EBMR Reports - Table 5 Line 36
+const billDiscountParticipantsWithArrears = {
+  pge: [19897, 19584, 20376, 21440, 22766, 23571, 22211, 22799, 24328, 22225, 23534, 24566, 22906, 27639, 29613, 24800, 25542, 26290, 26621, 26934, 28618],
+  pac: [17121, 18286, 18978, 19485, 20391, 19590, 19988, 19968, 18894, 21162, 18854, 21652, 25262, 25880, 29210, 30020, 30366, 28742, 27702, 26124, 24694],
+  nwn: [7876, 8433, 8863, 8806, 9082, 9249, 8982, 8974, 9018, 9660, 9486, 9522, 9963, 10466, 10190, 10457, 8994, 9835, 10063, 10304, 9939],
+  avista: [2104, 1997, 2138, 2206, 2291, 2403, 2313, 2441, 2347, 2284, 2368, 2396, 2256, 2156, 2321, 2395, 2491, 2468, 2412, 2470, 2325],
+  cng: [1086, 1225, 1305, 1318, 1297, 1311, 1305, 1200, 1217, 1068, 1096, 1266, 1298, 1315, 1459, 1461, 1513, 1501, 1482, 1544, 1538],
+  ipco: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 40, 155, 160, 200, 196, 185, 145, 167, 213, 176]
+};
+
+// Total Arrears Balance of Bill Discount Program Participants ($) (Jan 2024 - Sep 2025)
+// Source: Oregon PUC EBMR Reports - Table 5 Line 40
+const billDiscountArrearsBalance = {
+  pge: [4603436, 5113248, 5002562, 4859883, 4735633, 4608240, 4180147, 4527181, 4865456, 4319081, 4577098, 5147138, 6355177, 8805133, 10798381, 7159478, 6149375, 5609489, 5544757, 5651480, 5996987],
+  pac: [6174184, 6864329, 6888561, 6865046, 6925754, 6234795, 6260166, 4453337, 7508310, 5954119, 4043122, 6488703, 12864886, 7186437, 9777375, 13380562, 12124426, 10160273, 9006348, 8101107, 7226526],
+  nwn: [1159594, 1423639, 1422473, 1371444, 1264057, 1156163, 972232, 805965, 779150, 812085, 812827, 946566, 1269451, 1522773, 1453346, 1361748, 1083522, 984641, 835117, 728684, 625098],
+  avista: [322756, 320597, 346872, 351114, 343196, 335300, 292457, 274757, 244555, 226529, 233702, 267591, 306702, 313524, 352735, 349356, 339311, 313713, 272479, 264402, 217868],
+  cng: [135555, 176387, 211047, 205024, 196359, 183739, 164354, 122385, 80843, 61168, 62427, 90290, 122234, 142358, 180184, 174885, 153100, 138101, 103949, 79858, 67393],
+  ipco: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 126, 21443, 89914, 114469, 148681, 113954, 82772, 53740, 67647, 67994, 52578]
+};
+
 // ==================== GEOGRAPHIC VIEW DATA (Q2 2025) ====================
 // ZIP-level data for geographic visualization
 const geoZipData = {
@@ -1092,7 +1125,7 @@ export default function OregonEnergyDashboard() {
               const rateChange = ((recentRate - priorRate) / priorRate) * 100;
               
               const getTrendIcon = (change) => {
-                if (change > 2) return { icon: '↑', color: '#DC2626', text: 'Trending Up' };
+                if (change > 2) return { icon: '↑', color: '#F59E0B', text: 'Trending Up' };
                 if (change < -2) return { icon: '↓', color: '#059669', text: 'Trending Down' };
                 return { icon: '→', color: '#6B7280', text: 'Flat' };
               };
@@ -1101,26 +1134,26 @@ export default function OregonEnergyDashboard() {
               const rateTrend = getTrendIcon(rateChange);
               
               return (
-                <div style={{ background: 'linear-gradient(135deg, #7F1D1D 0%, #991B1B 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
+                <div style={{ background: 'linear-gradient(135deg, #334155 0%, #475569 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
                   <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'white' }}>Disconnections Trend Analysis (3-Month Comparison)</h3>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                     <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <span style={{ fontSize: '32px', color: discTrend.color === '#DC2626' ? '#FCA5A5' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{discTrend.icon}</span>
+                        <span style={{ fontSize: '32px', color: discTrend.color === '#F59E0B' ? '#FCD34D' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{discTrend.icon}</span>
                         <div>
                           <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Total Disconnections</div>
                           <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{discTrend.text}</div>
-                          <div style={{ color: discTrend.color === '#DC2626' ? '#FCA5A5' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{discChange >= 0 ? '+' : ''}{discChange.toFixed(1)}% vs prior 3 months</div>
+                          <div style={{ color: discTrend.color === '#F59E0B' ? '#FCD34D' : discTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{discChange >= 0 ? '+' : ''}{discChange.toFixed(1)}% vs prior 3 months</div>
                         </div>
                       </div>
                     </div>
                     <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <span style={{ fontSize: '32px', color: rateTrend.color === '#DC2626' ? '#FCA5A5' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{rateTrend.icon}</span>
+                        <span style={{ fontSize: '32px', color: rateTrend.color === '#F59E0B' ? '#FCD34D' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB' }}>{rateTrend.icon}</span>
                         <div>
                           <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Disconnection Rate</div>
                           <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{rateTrend.text}</div>
-                          <div style={{ color: rateTrend.color === '#DC2626' ? '#FCA5A5' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{rateChange >= 0 ? '+' : ''}{rateChange.toFixed(1)}% vs prior 3 months</div>
+                          <div style={{ color: rateTrend.color === '#F59E0B' ? '#FCD34D' : rateTrend.color === '#059669' ? '#6EE7B7' : '#D1D5DB', fontSize: '14px' }}>{rateChange >= 0 ? '+' : ''}{rateChange.toFixed(1)}% vs prior 3 months</div>
                         </div>
                       </div>
                     </div>
@@ -1145,7 +1178,7 @@ export default function OregonEnergyDashboard() {
                     <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
                     <YAxis tick={{ fontSize: 10 }} />
                     <Tooltip />
-                    <Bar dataKey="value" fill="#DC2626" radius={[4, 4, 0, 0]} name="Disconnections" />
+                    <Bar dataKey="value" fill="#64748B" radius={[4, 4, 0, 0]} name="Disconnections" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -1169,7 +1202,7 @@ export default function OregonEnergyDashboard() {
                     <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
                     <YAxis tickFormatter={(v) => `${v}%`} tick={{ fontSize: 10 }} />
                     <Tooltip formatter={(v) => `${v}%`} />
-                    <Area type="monotone" dataKey="value" stroke="#DC2626" fill="#FECACA" strokeWidth={2} name="Rate %" />
+                    <Area type="monotone" dataKey="value" stroke="#64748B" fill="#CBD5E1" strokeWidth={2} name="Rate %" />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -1194,7 +1227,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Disconnection Rate by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Disconnection Rate by Utility (% of Customers)</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Rate by Utility (% of Customers)</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, rate: discPct[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -1337,7 +1370,7 @@ export default function OregonEnergyDashboard() {
             </div>
 
             {/* Dollars Trend */}
-            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
               <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Monthly Bill Discount Dollars Trend</h3>
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={getChartData(billDiscountDollars)}>
@@ -1348,6 +1381,391 @@ export default function OregonEnergyDashboard() {
                   <Area type="monotone" dataKey="value" stroke="#059669" fill="#D1FAE5" name="Dollars" />
                 </AreaChart>
               </ResponsiveContainer>
+            </div>
+
+            {/* Program Recipient Disconnections Section */}
+            <div style={{ background: '#FEF3C7', borderRadius: '12px', padding: '16px', marginBottom: '24px', border: '1px solid #FCD34D' }}>
+              <p style={{ margin: 0, color: '#92400E', fontSize: '14px' }}>
+                <strong>Bill Discount Recipient Disconnections</strong> — Service disconnections among customers enrolled in bill discount programs (Jan 2024 - Sep 2025).
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Bill Discount Recipient Disconnections by Utility - Total */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Bill Discount Recipient Disconnections by Utility</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart 
+                    data={utilities.map(u => ({ 
+                      name: u.short, 
+                      total: billDiscountDisconnections[u.id].reduce((a, b) => a + b, 0),
+                      color: u.color 
+                    })).sort((a, b) => b.total - a.total)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [formatNumber(v), 'Disconnections']} />
+                    <Bar dataKey="total" radius={[0, 4, 4, 0]} name="Total Disconnections">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p style={{ margin: '12px 0 0', fontSize: '12px', color: '#6B7280', textAlign: 'center' }}>
+                  Total: {formatNumber(utilities.reduce((sum, u) => sum + billDiscountDisconnections[u.id].reduce((a, b) => a + b, 0), 0))} disconnections (Jan 2024 - Sep 2025)
+                </p>
+              </div>
+
+              {/* Monthly Trend - Bill Discount Recipient Disconnections */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>
+                  Bill Discount Recipient Disconnections - Monthly Trend
+                  {selectedUtility !== 'all' && (
+                    <span style={{ fontWeight: 'normal', fontSize: '14px', color: '#6B7280' }}>
+                      {' '}({utilities.find(u => u.id === selectedUtility)?.name})
+                    </span>
+                  )}
+                </h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <AreaChart data={getChartData(billDiscountDisconnections)}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => [formatNumber(v), 'Disconnections']} />
+                    <Area 
+                      type="monotone" 
+                      dataKey="value" 
+                      stroke={selectedUtility !== 'all' ? utilities.find(u => u.id === selectedUtility)?.color : '#DC2626'} 
+                      fill={selectedUtility !== 'all' ? `${utilities.find(u => u.id === selectedUtility)?.color}20` : '#FEE2E2'} 
+                      name="Bill Discount Disconnections" 
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Normalized Metrics Section */}
+            <div style={{ background: '#EFF6FF', borderRadius: '12px', padding: '16px', marginBottom: '24px', border: '1px solid #BFDBFE' }}>
+              <p style={{ margin: 0, color: '#1E40AF', fontSize: '14px' }}>
+                <strong>Normalized Comparison Metrics</strong> — These rates allow fair comparison across utilities of different sizes.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Disconnection Rate for Bill Discount Participants */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Rate for Bill Discount Participants</h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Bill Discount Disconnections ÷ Bill Discount Participants (Sep 2025)</p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart 
+                    data={utilities.map(u => {
+                      const discCount = billDiscountDisconnections[u.id][currentMonth] || 0;
+                      const partCount = billDiscountParticipants[u.id][currentMonth] || 1;
+                      return { 
+                        name: u.short, 
+                        rate: ((discCount / partCount) * 100),
+                        color: u.color 
+                      };
+                    }).sort((a, b) => b.rate - a.rate)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={(v) => `${v.toFixed(1)}%`} tick={{ fontSize: 10 }} domain={[0, 'auto']} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [`${v.toFixed(2)}%`, 'Disconnection Rate']} />
+                    <Bar dataKey="rate" radius={[0, 4, 4, 0]} name="Disconnection Rate">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Share of Total Disconnections */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>Share of Total Disconnections (Bill Discount Customers)</h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Bill Discount Disconnections ÷ Total Residential Disconnections (Sep 2025)</p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart 
+                    data={utilities.map(u => {
+                      const bdDisc = billDiscountDisconnections[u.id][currentMonth] || 0;
+                      const totalDisc = disconnections[u.id][currentMonth] || 1;
+                      return { 
+                        name: u.short, 
+                        share: ((bdDisc / totalDisc) * 100),
+                        color: u.color 
+                      };
+                    }).sort((a, b) => b.share - a.share)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={(v) => `${v.toFixed(0)}%`} tick={{ fontSize: 10 }} domain={[0, 100]} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [`${v.toFixed(1)}%`, 'Share of Disconnections']} />
+                    <Bar dataKey="share" radius={[0, 4, 4, 0]} name="Share of Total">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Monthly Trend Charts for Normalized Metrics */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              {/* Disconnection Rate Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>
+                  Disconnection Rate Trend
+                  {selectedUtility !== 'all' && (
+                    <span style={{ fontWeight: 'normal', fontSize: '14px', color: '#6B7280' }}>
+                      {' '}({utilities.find(u => u.id === selectedUtility)?.name})
+                    </span>
+                  )}
+                </h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Bill Discount Disconnections ÷ Bill Discount Participants</p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart data={months.map((m, i) => {
+                    if (selectedUtility === 'all') {
+                      const totalDisc = utilities.reduce((sum, u) => sum + (billDiscountDisconnections[u.id][i] || 0), 0);
+                      const totalPart = utilities.reduce((sum, u) => sum + (billDiscountParticipants[u.id][i] || 0), 0);
+                      return { month: m, rate: totalPart > 0 ? (totalDisc / totalPart) * 100 : 0 };
+                    } else {
+                      const disc = billDiscountDisconnections[selectedUtility]?.[i] || 0;
+                      const part = billDiscountParticipants[selectedUtility]?.[i] || 1;
+                      return { month: m, rate: (disc / part) * 100 };
+                    }
+                  })}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={(v) => `${v.toFixed(1)}%`} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => [`${v.toFixed(2)}%`, 'Disconnection Rate']} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="rate" 
+                      stroke={selectedUtility !== 'all' ? utilities.find(u => u.id === selectedUtility)?.color : '#1E3A5F'} 
+                      strokeWidth={2}
+                      dot={false}
+                      name="Disconnection Rate" 
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Share of Disconnections Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>
+                  Share of Total Disconnections Trend
+                  {selectedUtility !== 'all' && (
+                    <span style={{ fontWeight: 'normal', fontSize: '14px', color: '#6B7280' }}>
+                      {' '}({utilities.find(u => u.id === selectedUtility)?.name})
+                    </span>
+                  )}
+                </h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Bill Discount Disconnections ÷ Total Residential Disconnections</p>
+                <ResponsiveContainer width="100%" height={250}>
+                  <LineChart data={months.map((m, i) => {
+                    if (selectedUtility === 'all') {
+                      const totalBdDisc = utilities.reduce((sum, u) => sum + (billDiscountDisconnections[u.id][i] || 0), 0);
+                      const totalDisc = utilities.reduce((sum, u) => sum + (disconnections[u.id][i] || 0), 0);
+                      return { month: m, share: totalDisc > 0 ? (totalBdDisc / totalDisc) * 100 : 0 };
+                    } else {
+                      const bdDisc = billDiscountDisconnections[selectedUtility]?.[i] || 0;
+                      const totalDisc = disconnections[selectedUtility]?.[i] || 1;
+                      return { month: m, share: (bdDisc / totalDisc) * 100 };
+                    }
+                  })}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={(v) => `${v.toFixed(0)}%`} tick={{ fontSize: 10 }} domain={[0, 'auto']} />
+                    <Tooltip formatter={(v) => [`${v.toFixed(1)}%`, 'Share of Disconnections']} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="share" 
+                      stroke={selectedUtility !== 'all' ? utilities.find(u => u.id === selectedUtility)?.color : '#7C3AED'} 
+                      strokeWidth={2}
+                      dot={false}
+                      name="Share of Disconnections" 
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Bill Discount Participant Arrears Section */}
+            <div style={{ background: '#FEF3C7', borderRadius: '12px', padding: '16px', marginBottom: '24px', marginTop: '32px', border: '1px solid #FCD34D' }}>
+              <p style={{ margin: 0, color: '#92400E', fontSize: '14px' }}>
+                <strong>Bill Discount Participant Arrears</strong> — Number of bill discount participants with arrears balances and total arrears amounts (Jan 2024 - Sep 2025). Note: PGE data only available for Jul-Sep 2025.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Bill Discount Participants with Arrears by Utility */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Bill Discount Participants with Arrears (Sep 2025)</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart 
+                    data={utilities.map(u => ({ 
+                      name: u.short, 
+                      count: billDiscountParticipantsWithArrears[u.id][currentMonth] || 0,
+                      color: u.color 
+                    })).sort((a, b) => b.count - a.count)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [formatNumber(v), 'Participants with Arrears']} />
+                    <Bar dataKey="count" radius={[0, 4, 4, 0]} name="Participants">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Total Arrears Balance by Utility */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Arrears Balance of Bill Discount Participants (Sep 2025)</h3>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart 
+                    data={utilities.map(u => ({ 
+                      name: u.short, 
+                      balance: billDiscountArrearsBalance[u.id][currentMonth] || 0,
+                      color: u.color 
+                    })).sort((a, b) => b.balance - a.balance)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [formatCurrency(v), 'Arrears Balance']} />
+                    <Bar dataKey="balance" radius={[0, 4, 4, 0]} name="Arrears Balance">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Monthly Trend Charts for Arrears */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Participants with Arrears Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>
+                  Bill Discount Participants with Arrears - Monthly Trend
+                  {selectedUtility !== 'all' && (
+                    <span style={{ fontWeight: 'normal', fontSize: '14px', color: '#6B7280' }}>
+                      {' '}({utilities.find(u => u.id === selectedUtility)?.name})
+                    </span>
+                  )}
+                </h3>
+                <ResponsiveContainer width="100%" height={280}>
+                  <AreaChart data={getChartData(billDiscountParticipantsWithArrears)}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => [formatNumber(v), 'Participants with Arrears']} />
+                    <Area 
+                      type="monotone" 
+                      dataKey="value" 
+                      stroke={selectedUtility !== 'all' ? utilities.find(u => u.id === selectedUtility)?.color : '#7C3AED'} 
+                      fill={selectedUtility !== 'all' ? `${utilities.find(u => u.id === selectedUtility)?.color}20` : '#EDE9FE'} 
+                      name="Participants with Arrears" 
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Arrears Balance Trend */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>
+                  Arrears Balance of Bill Discount Participants - Monthly Trend
+                  {selectedUtility !== 'all' && (
+                    <span style={{ fontWeight: 'normal', fontSize: '14px', color: '#6B7280' }}>
+                      {' '}({utilities.find(u => u.id === selectedUtility)?.name})
+                    </span>
+                  )}
+                </h3>
+                <ResponsiveContainer width="100%" height={280}>
+                  <AreaChart data={getChartData(billDiscountArrearsBalance)}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => [formatCurrency(v), 'Arrears Balance']} />
+                    <Area 
+                      type="monotone" 
+                      dataKey="value" 
+                      stroke={selectedUtility !== 'all' ? utilities.find(u => u.id === selectedUtility)?.color : '#059669'} 
+                      fill={selectedUtility !== 'all' ? `${utilities.find(u => u.id === selectedUtility)?.color}20` : '#D1FAE5'} 
+                      name="Arrears Balance" 
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Normalized Arrears Metrics */}
+            <div style={{ background: '#EFF6FF', borderRadius: '12px', padding: '16px', marginBottom: '24px', border: '1px solid #BFDBFE' }}>
+              <p style={{ margin: 0, color: '#1E40AF', fontSize: '14px' }}>
+                <strong>Normalized Arrears Metrics</strong> — Average arrears per participant and arrears rate allow fair comparison across utilities.
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+              {/* Arrears Rate (% of participants with arrears) */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>Bill Discount Arrears Rate</h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Participants with Arrears ÷ Total Bill Discount Participants (Sep 2025)</p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart 
+                    data={utilities.map(u => {
+                      const withArrears = billDiscountParticipantsWithArrears[u.id][currentMonth] || 0;
+                      const totalPart = billDiscountParticipants[u.id][currentMonth] || 1;
+                      return { 
+                        name: u.short, 
+                        rate: withArrears > 0 ? ((withArrears / totalPart) * 100) : 0,
+                        color: u.color 
+                      };
+                    }).filter(d => d.rate > 0).sort((a, b) => b.rate - a.rate)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={(v) => `${v.toFixed(0)}%`} tick={{ fontSize: 10 }} domain={[0, 'auto']} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [`${v.toFixed(1)}%`, 'Arrears Rate']} />
+                    <Bar dataKey="rate" radius={[0, 4, 4, 0]} name="Arrears Rate">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Average Arrears per Participant */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 8px', fontSize: '16px', color: '#1E3A5F' }}>Average Arrears per Participant</h3>
+                <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#6B7280' }}>Total Arrears Balance ÷ Participants with Arrears (Sep 2025)</p>
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart 
+                    data={utilities.map(u => {
+                      const balance = billDiscountArrearsBalance[u.id][currentMonth] || 0;
+                      const withArrears = billDiscountParticipantsWithArrears[u.id][currentMonth] || 1;
+                      return { 
+                        name: u.short, 
+                        avg: balance > 0 ? (balance / withArrears) : 0,
+                        color: u.color 
+                      };
+                    }).filter(d => d.avg > 0).sort((a, b) => b.avg - a.avg)} 
+                    layout="vertical"
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis type="number" tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={70} />
+                    <Tooltip formatter={(v) => [formatCurrency(v), 'Average Arrears']} />
+                    <Bar dataKey="avg" radius={[0, 4, 4, 0]} name="Avg Arrears">
+                      {utilities.map((u, i) => <Cell key={i} fill={u.color} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </>
         )}
