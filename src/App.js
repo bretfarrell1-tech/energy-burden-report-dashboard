@@ -888,11 +888,110 @@ export default function OregonEnergyDashboard() {
         {activeTab === 'arrears' && (
           <>
             <UtilityFilter />
+
+            {/* Arrears Trend Indicator */}
+            {(() => {
+              const recentMonths = 3;
+              const getAvg = (arr, start, count) => arr.slice(start, start + count).reduce((a, b) => a + b, 0) / count;
+              
+              const customerData = selectedUtility === 'all'
+                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0))
+                : arrearsCustomers[selectedUtility] || [];
+              const balanceData = selectedUtility === 'all'
+                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0))
+                : arrearsBalance[selectedUtility] || [];
+              
+              const recentCust = getAvg(customerData, customerData.length - recentMonths, recentMonths);
+              const priorCust = getAvg(customerData, customerData.length - recentMonths * 2, recentMonths);
+              const custChange = ((recentCust - priorCust) / priorCust) * 100;
+              
+              const recentBal = getAvg(balanceData, balanceData.length - recentMonths, recentMonths);
+              const priorBal = getAvg(balanceData, balanceData.length - recentMonths * 2, recentMonths);
+              const balChange = ((recentBal - priorBal) / priorBal) * 100;
+              
+              const getTrendIcon = (change) => {
+                if (change > 2) return { icon: '↑', color: '#DC2626', text: 'Trending Up' };
+                if (change < -2) return { icon: '↓', color: '#059669', text: 'Trending Down' };
+                return { icon: '→', color: '#6B7280', text: 'Flat' };
+              };
+              
+              const custTrend = getTrendIcon(custChange);
+              const balTrend = getTrendIcon(balChange);
+              
+              return (
+                <div style={{ background: 'linear-gradient(135deg, #1E3A5F 0%, #2D5A87 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'white' }}>Arrears Trend Analysis (3-Month Comparison)</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: custTrend.color }}>{custTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Customers in Arrears</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{custTrend.text}</div>
+                          <div style={{ color: custTrend.color, fontSize: '14px' }}>{custChange >= 0 ? '+' : ''}{custChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span style={{ fontSize: '32px', color: balTrend.color }}>{balTrend.icon}</span>
+                        <div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Total Arrears Balance</div>
+                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{balTrend.text}</div>
+                          <div style={{ color: balTrend.color, fontSize: '14px' }}>{balChange >= 0 ? '+' : ''}{balChange.toFixed(1)}% vs prior 3 months</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Total Arrears Charts */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+              {/* Total Customers in Arrears */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Customers in Arrears</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0)
+                      : arrearsCustomers[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => formatNumber(v)} />
+                    <Area type="monotone" dataKey="value" stroke="#3B82F6" fill="#93C5FD" strokeWidth={2} name="Customers" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Total Arrears Balance */}
+              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Arrears Balance</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <AreaChart data={months.map((month, i) => ({
+                    month,
+                    value: selectedUtility === 'all' 
+                      ? utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0)
+                      : arrearsBalance[selectedUtility]?.[i] || 0
+                  }))}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
+                    <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v) => formatCurrency(v)} />
+                    <Area type="monotone" dataKey="value" stroke="#DC2626" fill="#FCA5A5" strokeWidth={2} name="Balance" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Balance by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Current Arrears Balance by Utility</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Arrears Balance by Utility (Sep 2025)</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, balance: arrearsBalance[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -908,7 +1007,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Average Balance per Customer */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Arrears per Customer</h3>
+                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Arrears per Customer (Sep 2025)</h3>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ 
                     name: u.short, 
@@ -992,105 +1091,6 @@ export default function OregonEnergyDashboard() {
                 </ResponsiveContainer>
               </div>
             </div>
-
-            {/* Total Arrears Charts */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
-              {/* Total Customers in Arrears */}
-              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Customers in Arrears</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <AreaChart data={months.map((month, i) => ({
-                    month,
-                    value: selectedUtility === 'all' 
-                      ? utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0)
-                      : arrearsCustomers[selectedUtility]?.[i] || 0
-                  }))}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
-                    <YAxis tickFormatter={formatNumber} tick={{ fontSize: 10 }} />
-                    <Tooltip formatter={(v) => formatNumber(v)} />
-                    <Area type="monotone" dataKey="value" stroke="#3B82F6" fill="#93C5FD" strokeWidth={2} name="Customers" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-
-              {/* Total Arrears Balance */}
-              <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Arrears Balance</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <AreaChart data={months.map((month, i) => ({
-                    month,
-                    value: selectedUtility === 'all' 
-                      ? utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0)
-                      : arrearsBalance[selectedUtility]?.[i] || 0
-                  }))}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                    <XAxis dataKey="month" tick={{ fontSize: 10 }} interval={2} />
-                    <YAxis tickFormatter={formatCurrency} tick={{ fontSize: 10 }} />
-                    <Tooltip formatter={(v) => formatCurrency(v)} />
-                    <Area type="monotone" dataKey="value" stroke="#DC2626" fill="#FCA5A5" strokeWidth={2} name="Balance" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-
-            {/* Arrears Trend Indicator */}
-            {(() => {
-              const recentMonths = 3;
-              const getAvg = (arr, start, count) => arr.slice(start, start + count).reduce((a, b) => a + b, 0) / count;
-              
-              const customerData = selectedUtility === 'all'
-                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsCustomers[u.id][i], 0))
-                : arrearsCustomers[selectedUtility] || [];
-              const balanceData = selectedUtility === 'all'
-                ? months.map((_, i) => utilities.reduce((sum, u) => sum + arrearsBalance[u.id][i], 0))
-                : arrearsBalance[selectedUtility] || [];
-              
-              const recentCust = getAvg(customerData, customerData.length - recentMonths, recentMonths);
-              const priorCust = getAvg(customerData, customerData.length - recentMonths * 2, recentMonths);
-              const custChange = ((recentCust - priorCust) / priorCust) * 100;
-              
-              const recentBal = getAvg(balanceData, balanceData.length - recentMonths, recentMonths);
-              const priorBal = getAvg(balanceData, balanceData.length - recentMonths * 2, recentMonths);
-              const balChange = ((recentBal - priorBal) / priorBal) * 100;
-              
-              const getTrendIcon = (change) => {
-                if (change > 2) return { icon: '↑', color: '#DC2626', text: 'Trending Up' };
-                if (change < -2) return { icon: '↓', color: '#059669', text: 'Trending Down' };
-                return { icon: '→', color: '#6B7280', text: 'Flat' };
-              };
-              
-              const custTrend = getTrendIcon(custChange);
-              const balTrend = getTrendIcon(balChange);
-              
-              return (
-                <div style={{ background: 'linear-gradient(135deg, #1E3A5F 0%, #2D5A87 100%)', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: 'white' }}>Arrears Trend Analysis (3-Month Comparison)</h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <span style={{ fontSize: '32px', color: custTrend.color }}>{custTrend.icon}</span>
-                        <div>
-                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Customers in Arrears</div>
-                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{custTrend.text}</div>
-                          <div style={{ color: custTrend.color, fontSize: '14px' }}>{custChange >= 0 ? '+' : ''}{custChange.toFixed(1)}% vs prior 3 months</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{ background: 'rgba(255,255,255,0.1)', borderRadius: '8px', padding: '16px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <span style={{ fontSize: '32px', color: balTrend.color }}>{balTrend.icon}</span>
-                        <div>
-                          <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px' }}>Total Arrears Balance</div>
-                          <div style={{ color: 'white', fontSize: '18px', fontWeight: '600' }}>{balTrend.text}</div>
-                          <div style={{ color: balTrend.color, fontSize: '14px' }}>{balChange >= 0 ? '+' : ''}{balChange.toFixed(1)}% vs prior 3 months</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
           </>
         )}
 
