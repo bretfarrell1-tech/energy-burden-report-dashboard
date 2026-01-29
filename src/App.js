@@ -2,6 +2,282 @@ import React, { useState, useMemo } from 'react';
 import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import * as XLSX from 'xlsx';
 
+// ==================== METRIC DEFINITIONS ====================
+// Official definitions from Oregon Administrative Rules (OAR 860-021-0408)
+const definitions = {
+  // Administrative and program costs
+  administrativeCosts: {
+    title: "Administrative Costs",
+    definition: "All incremental expenses related to the management and operation of the bill discount program. This includes, but is not limited to, incremental costs for program design, staff salaries, data processing, customer outreach, eligibility verification, compliance, reporting, and any other overhead or indirect costs necessary to administer the program.",
+    source: "OAR 860-021-0408(1)(a)"
+  },
+  appliedCredits: {
+    title: "Applied Credits",
+    definition: "The aggregate dollar value of discounts applied to the utility bills of residential customers that participate in the utility's bill discount program.",
+    source: "OAR 860-021-0408(1)(b)"
+  },
+  
+  // Arrears metrics
+  arrearsBalance: {
+    title: "Arrearage Balance",
+    definition: "Any amount of money that a customer owes to the utility company for services provided which remain unpaid past the bill issuance date.",
+    source: "OAR 860-021-0408(1)(c)"
+  },
+  customersInArrears: {
+    title: "Customers in Arrears",
+    definition: "Residential customers with an arrearage balance—any amount of money owed to the utility company for services provided which remains unpaid past the bill issuance date.",
+    source: "OAR 860-021-0408(1)(c)"
+  },
+  totalResidentialArrears: {
+    title: "Total Residential Arrearage Balances",
+    definition: "The total dollar amount of outstanding balances owed by residential customers on their utility bills.",
+    source: "OAR 860-021-0408(1)(w)"
+  },
+  averageArrears: {
+    title: "Average Arrears per Customer",
+    definition: "The total residential arrearage balance divided by the number of customers with an arrearage balance.",
+    source: "Derived from OAR 860-021-0408(1)(c), (1)(w)"
+  },
+  daysInArrears: {
+    title: "Days in Arrears",
+    definition: "The number of days from the original bill issuance date a customer's arrearage balance remains unpaid. Days in arrears are divided into three categories: 31-60 days, 61-90 days, and 91+ days.",
+    source: "OAR 860-021-0408(1)(i)"
+  },
+  ageBucket31_60: {
+    title: "31-60 Days in Arrears",
+    definition: "A customer's arrearage balance has been unpaid for a period of between 31 and 60 days from the original bill issuance date.",
+    source: "OAR 860-021-0408(1)(i)(A)"
+  },
+  ageBucket61_90: {
+    title: "61-90 Days in Arrears",
+    definition: "A customer's arrearage balance has been unpaid for a period of between 61 and 90 days from the original bill issuance date.",
+    source: "OAR 860-021-0408(1)(i)(B)"
+  },
+  ageBucket91Plus: {
+    title: "91+ Days in Arrears",
+    definition: "A customer's arrearage balance has been unpaid for a period greater than 90 days from the original bill issuance date.",
+    source: "OAR 860-021-0408(1)(i)(C)"
+  },
+  
+  // Usage and billing metrics
+  averageBillDiscountUsage: {
+    title: "Average Bill Discount Program Participant Usage",
+    definition: "The average monthly usage of residential customers enrolled in a utility-administered bill discount program.",
+    source: "OAR 860-021-0408(1)(d)"
+  },
+  highUsageAvgBill: {
+    title: "Average Bill of High-Usage Customer",
+    definition: "The average monthly dollar amount the utility billed all high-usage customers.",
+    source: "OAR 860-021-0408(1)(e)"
+  },
+  averageBill: {
+    title: "Average Residential Bill",
+    definition: "The average monthly bill for residential utility services within a utility's Oregon service territory.",
+    source: "OAR 860-021-0408(1)(f)"
+  },
+  averageUsage: {
+    title: "Average Residential Usage",
+    definition: "The average monthly amount of energy billed per residential meter within a utility's Oregon service territory.",
+    source: "OAR 860-021-0408(1)(g)"
+  },
+  highUsageAvgUsage: {
+    title: "Average Usage of High-Usage Customers",
+    definition: "The average monthly energy consumption of all customers classified as high usage.",
+    source: "OAR 860-021-0408(1)(h)"
+  },
+  totalResidentialUsage: {
+    title: "Total Residential Usage",
+    definition: "The total amount of energy billed for all residential customers within a utility's Oregon service territory.",
+    source: "OAR 860-021-0408(1)(x)"
+  },
+  
+  // Disconnection metrics
+  disconnectionNotices: {
+    title: "Disconnection Notice",
+    definition: "Any written or electronic notification issued by a utility to a customer in accordance with OAR 860-021-0405.",
+    source: "OAR 860-021-0408(1)(j)"
+  },
+  disconnections: {
+    title: "Service Disconnection for Non-Payment",
+    definition: "Instances where utility service to a residential account was terminated due to the customer's failure to pay their utility bill.",
+    source: "OAR 860-021-0408(1)(r)"
+  },
+  disconnectionRate: {
+    title: "Disconnection Rate",
+    definition: "The percentage of residential customers who experienced service disconnection for non-payment, calculated as disconnections divided by total active residential accounts.",
+    source: "Derived from OAR 860-021-0408(1)(r)"
+  },
+  reconnections: {
+    title: "Reconnections",
+    definition: "Instances where utility service was restored to a residential account following a service disconnection for non-payment.",
+    source: "OAR 860-021-0408"
+  },
+  reconnectionRate: {
+    title: "Reconnection Rate",
+    definition: "The percentage of disconnected customers who had their service restored following a service disconnection for non-payment.",
+    source: "Derived from OAR 860-021-0408"
+  },
+  
+  // Bill Discount Program - enrollment
+  billDiscountParticipants: {
+    title: "Bill Discount Program Participants",
+    definition: "Residential customers enrolled in a utility-administered bill discount program for low-income customers.",
+    source: "OAR 860-021-0408"
+  },
+  newEnrollments: {
+    title: "New Enrollments",
+    definition: "Residential customers enrolled in a utility's bill discount program for the first time within the current calendar year.",
+    source: "OAR 860-021-0408(1)(n)"
+  },
+  disenrollments: {
+    title: "Disenrollments",
+    definition: "Active residential customers who were enrolled in a utility's bill discount program as of the previous reporting period but are no longer participating as of the current reporting period. This includes customers who were removed from the program due to ineligibility or non-compliance.",
+    source: "OAR 860-021-0408(1)(k)"
+  },
+  
+  // Bill Discount Program - billing
+  billDiscountDollars: {
+    title: "Total Dollars Provided to Bill Discount Program Participants",
+    definition: "The aggregate dollar value of discounts applied to the utility bills of residential customers who participate in the utility's bill discount program.",
+    source: "OAR 860-021-0408(1)(v)"
+  },
+  preDiscountBill: {
+    title: "Pre-Discount Average Bill Discount Program Participant Bill",
+    definition: "The average monthly utility bill amount for bill discount program participants before the application of any bill discounts.",
+    source: "OAR 860-021-0408(1)(p)"
+  },
+  postDiscountBill: {
+    title: "Post-Discount Average Bill Discount Program Participant Bill",
+    definition: "The average monthly utility bill amount for bill discount program participants after the application of their respective bill discount.",
+    source: "OAR 860-021-0408(1)(o)"
+  },
+  billDiscountProgramCosts: {
+    title: "Total Bill Discount Program Costs",
+    definition: "The total expenditure incurred by a utility in administering its bill discount program for low-income residential customers.",
+    source: "OAR 860-021-0408(1)(u)"
+  },
+  
+  // Bill Discount Program - arrears and disconnections
+  billDiscountArrearsBalance: {
+    title: "Total Arrears Balance of Bill Discount Program Participants",
+    definition: "The total dollar amount of outstanding balances owed by residential customers enrolled in a utility-administered bill discount program on their utility bills.",
+    source: "OAR 860-021-0408(1)(s)"
+  },
+  billDiscountArrearsParticipants: {
+    title: "Bill Discount Program Participants with Arrears",
+    definition: "Residential customers enrolled in a utility-administered bill discount program who have an arrearage balance on their utility bills.",
+    source: "Derived from OAR 860-021-0408(1)(c), (1)(s)"
+  },
+  billDiscountArrearsRate: {
+    title: "Bill Discount Arrears Rate",
+    definition: "The percentage of bill discount program participants with an arrearage balance.",
+    source: "Derived from OAR 860-021-0408(1)(s)"
+  },
+  billDiscountDisconnections: {
+    title: "Bill Discount Recipient Disconnections",
+    definition: "Instances where utility service to a residential account enrolled in a bill discount program was terminated due to the customer's failure to pay their utility bill.",
+    source: "Derived from OAR 860-021-0408(1)(r)"
+  },
+  
+  // High-usage customer metrics
+  highUsageCustomer: {
+    title: "High-Usage Customer",
+    definition: "A residential customer participating in a utility-administered bill discount program whose energy consumption places them in the 90th percentile or above of all other bill discount program participants within the utility's service area.",
+    source: "OAR 860-021-0408(1)(m)"
+  },
+  highUsageArrears: {
+    title: "Total Arrears Balance of High-Usage Customers",
+    definition: "The cumulative dollar amount of overdue balances of all high-usage customers in arrears during the reporting period.",
+    source: "OAR 860-021-0408(1)(t)"
+  },
+  
+  // Customer definitions
+  residentialCustomer: {
+    title: "Residential Customer",
+    definition: "Any individual or household that receives utility services for personal, non-commercial use. This includes all customers being served on a utility's residential service tariff.",
+    source: "OAR 860-021-0408(1)(q)"
+  },
+  energyAssistanceRecipient: {
+    title: "Energy Assistance Recipient",
+    definition: "A residential customer who has received bill payment assistance with an energy bill from any federal, state, customer-funded bill payment assistance fund or program at least once within the past 12 months.",
+    source: "OAR 860-021-0408(1)(l)"
+  }
+};
+
+// InfoTooltip Component - shows definition on hover
+const InfoTooltip = ({ defKey, style = {} }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const def = definitions[defKey];
+  
+  if (!def) return null;
+  
+  return (
+    <span 
+      style={{ position: 'relative', display: 'inline-block', marginLeft: '6px', ...style }}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      <span style={{ 
+        cursor: 'help', 
+        color: '#6B7280', 
+        fontSize: '14px',
+        fontWeight: 'normal',
+        userSelect: 'none'
+      }}>
+        ⓘ
+      </span>
+      {isVisible && (
+        <div style={{
+          position: 'absolute',
+          bottom: '100%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          marginBottom: '8px',
+          padding: '12px 16px',
+          background: '#1F2937',
+          color: 'white',
+          borderRadius: '8px',
+          fontSize: '13px',
+          lineHeight: '1.5',
+          width: '320px',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+          zIndex: 1000,
+          textAlign: 'left'
+        }}>
+          <div style={{ fontWeight: '600', marginBottom: '6px', color: '#60A5FA' }}>
+            {def.title}
+          </div>
+          <div style={{ marginBottom: '8px' }}>
+            {def.definition}
+          </div>
+          <div style={{ fontSize: '11px', color: '#9CA3AF', fontStyle: 'italic', borderTop: '1px solid #374151', paddingTop: '6px', marginTop: '6px' }}>
+            Source: {def.source}
+          </div>
+          <div style={{
+            position: 'absolute',
+            bottom: '-6px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '0',
+            height: '0',
+            borderLeft: '6px solid transparent',
+            borderRight: '6px solid transparent',
+            borderTop: '6px solid #1F2937'
+          }} />
+        </div>
+      )}
+    </span>
+  );
+};
+
+// ChartTitle Component - title with optional info tooltip
+const ChartTitle = ({ children, defKey, style = {} }) => (
+  <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F', display: 'flex', alignItems: 'center', ...style }}>
+    {children}
+    {defKey && <InfoTooltip defKey={defKey} />}
+  </h3>
+);
+
 // ==================== VERIFIED DATA ====================
 // Source: Oregon PUC Docket RO 16 Energy Burden Metrics Reports
 // Period: January 2024 - September 2025 (21 months)
@@ -697,7 +973,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Total Customers in Arrears Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Total Customers in Arrears</h3>
+                <ChartTitle defKey="customersInArrears" style={{ color: '#DC2626' }}>Total Customers in Arrears</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={getChartData(arrearsCustomers)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -711,7 +987,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Total Arrears Balance Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#7C3AED' }}>Total Arrears Balance</h3>
+                <ChartTitle defKey="arrearsBalance" style={{ color: '#7C3AED' }}>Total Arrears Balance</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={getChartData(arrearsBalance)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -728,7 +1004,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Customers in Arrears Trend - By Bucket */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Customers in Arrears by Age Bucket</h3>
+                <ChartTitle defKey="daysInArrears">Customers in Arrears by Age Bucket</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -760,7 +1036,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Arrears Balance Trend - By Bucket */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Arrears Balance by Age Bucket</h3>
+                <ChartTitle defKey="daysInArrears">Arrears Balance by Age Bucket</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -795,7 +1071,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Average Bill Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#0284C7' }}>Average Monthly Residential Bill Trend</h3>
+                <ChartTitle defKey="averageBill" style={{ color: '#0284C7' }}>Average Monthly Residential Bill Trend</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -821,7 +1097,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Average Usage Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Monthly Residential Usage Trend</h3>
+                <ChartTitle defKey="averageUsage">Average Monthly Residential Usage Trend</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={months.map((month, i) => {
                     if (selectedUtility === 'all') {
@@ -855,7 +1131,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Disconnections Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#EA580C' }}>Disconnections Trend</h3>
+                <ChartTitle defKey="disconnections" style={{ color: '#EA580C' }}>Disconnections Trend</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={getChartData(disconnections)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -869,7 +1145,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Bill Discount Participants */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Bill Discount Participants</h3>
+                <ChartTitle defKey="billDiscountParticipants" style={{ color: '#059669' }}>Bill Discount Participants</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={getChartData(billDiscountParticipants)}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -951,7 +1227,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Total Customers in Arrears */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Customers in Arrears</h3>
+                <ChartTitle defKey="customersInArrears">Total Customers in Arrears</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => ({
                     month,
@@ -970,7 +1246,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Total Arrears Balance */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Arrears Balance</h3>
+                <ChartTitle defKey="arrearsBalance">Total Arrears Balance</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => ({
                     month,
@@ -1007,7 +1283,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Average Balance per Customer */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Average Arrears per Customer (Sep 2025)</h3>
+                <ChartTitle defKey="averageArrears">Average Arrears per Customer (Sep 2025)</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ 
                     name: u.short, 
@@ -1166,7 +1442,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Total Disconnections Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Total Disconnections Trend</h3>
+                <ChartTitle defKey="disconnections">Total Disconnections Trend</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={months.map((month, i) => ({
                     month,
@@ -1185,7 +1461,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Total Disconnection Rate Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Disconnection Rate Trend (%)</h3>
+                <ChartTitle defKey="disconnectionRate">Disconnection Rate Trend (%)</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => {
                     let rate;
@@ -1267,7 +1543,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Disconnection Notices Trend */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#EA580C' }}>Disconnection Notices Sent</h3>
+                <ChartTitle defKey="disconnectionNotices" style={{ color: '#EA580C' }}>Disconnection Notices Sent</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <AreaChart data={months.map((month, i) => ({
                     month,
@@ -1286,7 +1562,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Reconnection Rate */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Reconnection Rate (% of Disconnections)</h3>
+                <ChartTitle defKey="reconnectionRate" style={{ color: '#059669' }}>Reconnection Rate (% of Disconnections)</ChartTitle>
                 <ResponsiveContainer width="100%" height={250}>
                   <LineChart data={months.map((month, i) => {
                     let rate;
@@ -1324,7 +1600,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Participants by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Bill Discount Participants</h3>
+                <ChartTitle defKey="billDiscountParticipants">Bill Discount Participants</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, part: billDiscountParticipants[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -1340,7 +1616,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Dollars Disbursed */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Monthly Discount Dollars</h3>
+                <ChartTitle defKey="billDiscountDollars" style={{ color: '#059669' }}>Monthly Discount Dollars</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={utilities.map(u => ({ name: u.short, dollars: billDiscountDollars[u.id][currentMonth], color: u.color }))} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -1357,7 +1633,7 @@ export default function OregonEnergyDashboard() {
 
             {/* Participants Trend */}
             <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
-              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Bill Discount Participants Trend</h3>
+              <ChartTitle defKey="billDiscountParticipants">Bill Discount Participants Trend</ChartTitle>
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={getChartData(billDiscountParticipants)}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -1371,7 +1647,7 @@ export default function OregonEnergyDashboard() {
 
             {/* Dollars Trend */}
             <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '24px' }}>
-              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#059669' }}>Monthly Bill Discount Dollars Trend</h3>
+              <ChartTitle defKey="billDiscountDollars" style={{ color: '#059669' }}>Monthly Bill Discount Dollars Trend</ChartTitle>
               <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={getChartData(billDiscountDollars)}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
@@ -1393,7 +1669,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Bill Discount Recipient Disconnections by Utility - Total */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Bill Discount Recipient Disconnections by Utility</h3>
+                <ChartTitle defKey="billDiscountDisconnections" style={{ color: '#DC2626' }}>Bill Discount Recipient Disconnections by Utility</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart 
                     data={utilities.map(u => ({ 
@@ -1601,7 +1877,7 @@ export default function OregonEnergyDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
               {/* Bill Discount Participants with Arrears by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Bill Discount Participants with Arrears (Sep 2025)</h3>
+                <ChartTitle defKey="billDiscountArrearsParticipants" style={{ color: '#DC2626' }}>Bill Discount Participants with Arrears (Sep 2025)</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart 
                     data={utilities.map(u => ({ 
@@ -1624,7 +1900,7 @@ export default function OregonEnergyDashboard() {
 
               {/* Total Arrears Balance by Utility */}
               <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#DC2626' }}>Arrears Balance of Bill Discount Participants (Sep 2025)</h3>
+                <ChartTitle defKey="billDiscountArrearsBalance" style={{ color: '#DC2626' }}>Arrears Balance of Bill Discount Participants (Sep 2025)</ChartTitle>
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart 
                     data={utilities.map(u => ({ 
@@ -2420,6 +2696,58 @@ export default function OregonEnergyDashboard() {
                 <p style={{ marginBottom: '0' }}>
                   <strong>Utilities Included:</strong> Portland General Electric (PGE), Pacific Power, NW Natural, Avista, Cascade Natural Gas, and Idaho Power. PGE, Pacific Power, and Idaho Power are electric utilities; NW Natural, Avista, and Cascade Natural Gas are gas utilities.
                 </p>
+              </div>
+            </div>
+
+            {/* Glossary of Terms */}
+            <div style={{ background: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginTop: '24px' }}>
+              <h3 style={{ margin: '0 0 16px', fontSize: '16px', color: '#1E3A5F' }}>Glossary of Terms</h3>
+              <p style={{ color: '#6B7280', fontSize: '13px', marginBottom: '16px' }}>
+                Definitions are from Oregon Administrative Rules (OAR 860-021-0408). Hover over the ⓘ icons throughout the dashboard for quick definitions.
+              </p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                {/* Only show definitions for metrics actually used in the dashboard */}
+                {[
+                  'arrearsBalance',
+                  'customersInArrears', 
+                  'averageArrears',
+                  'daysInArrears',
+                  'disconnections',
+                  'disconnectionRate',
+                  'disconnectionNotices',
+                  'reconnectionRate',
+                  'billDiscountParticipants',
+                  'billDiscountDollars',
+                  'billDiscountDisconnections',
+                  'billDiscountArrearsParticipants',
+                  'billDiscountArrearsBalance',
+                  'billDiscountArrearsRate',
+                  'averageBill',
+                  'averageUsage',
+                  'residentialCustomer'
+                ].map(key => {
+                  const def = definitions[key];
+                  if (!def) return null;
+                  return (
+                    <div key={key} style={{ 
+                      background: '#F8FAFC', 
+                      borderRadius: '8px', 
+                      padding: '12px 16px',
+                      borderLeft: '3px solid #3B82F6'
+                    }}>
+                      <div style={{ fontWeight: '600', color: '#1E3A5F', marginBottom: '4px', fontSize: '14px' }}>
+                        {def.title}
+                      </div>
+                      <div style={{ color: '#374151', fontSize: '13px', lineHeight: '1.5', marginBottom: '6px' }}>
+                        {def.definition}
+                      </div>
+                      <div style={{ color: '#6B7280', fontSize: '11px', fontStyle: 'italic' }}>
+                        Source: {def.source}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </>
